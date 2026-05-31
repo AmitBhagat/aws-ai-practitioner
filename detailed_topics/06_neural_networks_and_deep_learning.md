@@ -42,80 +42,67 @@ Without activation functions, a neural network is just a giant linear regression
 *   **Linear / Identity Function:** Maps inputs to output directly:
 ```math
 f(x) = x
-```
-    *   *Linear Example:* The final output layer of a regression model predicting continuous numbers (e.g., house prices).
+```  <br /> 🔍 **Example:** The final output layer of a regression model predicting continuous numbers (e.g., house prices).
 > [!NOTE]
 > **Linear Stack Trick:** This is a bit of a headache, but here is the trick: if you stack multiple hidden layers with linear activations, they mathematically collapse into a single linear layer (since a composition of linear functions is still linear: $f(g(x)) = a(bx) = cx$). Thus, you gain no representation power, and you cannot perform backpropagation since the derivative is constant ($f'(x) = 1$).
 *   **Binary Step Function:** Outputs a binary threshold state:
 ```math
 f(x) = \begin{cases} 0 & \text{if } x \le 0 \\ 1 & \text{if } x > 0 \end{cases}
-```
-    *   *Binary Step Example:* A simple trigger gate that turns on ($1$) or off ($0$) based on whether cumulative incoming signal passes a zero threshold.
+```  <br /> 🔍 **Example:** A simple trigger gate that turns on ($1$) or off ($0$) based on whether cumulative incoming signal passes a zero threshold.
 > [!WARNING]
 > **Binary Step Gotcha:** The derivative of a binary step function is zero everywhere (and undefined at $x=0$). This means that during backpropagation, the gradients evaluate to zero, completely halting weight updates and preventing the model from learning.
 *   **Sigmoid Function:** Maps inputs to a range between $0$ and $1$:
 ```math
 f(x) = \frac{1}{1 + e^{-x}}
-```
-    *   *Sigmoid Example:* Predicting if a loan will be approved (Yes = 1, No = 0) at the output layer of a binary classifier.
+```  <br /> 🔍 **Example:** Predicting if a loan will be approved (Yes = 1, No = 0) at the output layer of a binary classifier.
 > [!WARNING]
-> **Vanishing Gradient:** When inputs get very large or very small, the sigmoid output curve becomes flat, and the derivative (gradient) approaches zero. During training, the signals fade away, and the network stops learning.
-    *   *Sigmoid & Vanishing Gradient Example:* If the input $x$ evaluates to a very large positive number (for example, $100$), the output is very close to $1.0$. The gradient at this point is virtually $0$. When backpropagating, the weight updates are multiplied by this $0$ gradient, meaning the model's parameters stop changing and learning halts.
+> **Vanishing Gradient:** When inputs get very large or very small, the sigmoid output curve becomes flat, and the derivative (gradient) approaches zero. During training, the signals fade away, and the network stops learning.  <br /> 🔍 **Example:** If the input $x$ evaluates to a very large positive number (for example, $100$), the output is very close to $1.0$. The gradient at this point is virtually $0$. When backpropagating, the weight updates are multiplied by this $0$ gradient, meaning the model's parameters stop changing and learning halts.
 *   **Tanh Function:** Maps inputs to a range between $-1$ and $1$:
 ```math
 f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
 ```
-    It is zero-centered, which makes training slightly faster than sigmoid, but it still suffers from vanishing gradients for extreme values.
-    *   *Tanh Example:* Running a natural language model where outputs need to be positive or negative to represent semantic direction. An input of $0$ maps exactly to an output of $0.0$, making the activation zero-centered and helping subsequent layers update parameters symmetrically.
+    It is zero-centered, which makes training slightly faster than sigmoid, but it still suffers from vanishing gradients for extreme values.  <br /> 🔍 **Example:** Running a natural language model where outputs need to be positive or negative to represent semantic direction. An input of $0$ maps exactly to an output of $0.0$, making the activation zero-centered and helping subsequent layers update parameters symmetrically.
 *   **ReLU (Rectified Linear Unit):** Maps inputs to a range between $0$ and $\infty$:
 ```math
 f(x) = \max(0, x)
-```
-    *   *ReLU Example:* The default activation function in hidden layers of feed-forward networks due to its extreme computational simplicity (it is just a threshold check).
+```  <br /> 🔍 **Example:** The default activation function in hidden layers of feed-forward networks due to its extreme computational simplicity (it is just a threshold check).
 > [!CAUTION]
-> **Dying ReLU:** The derivative of ReLU is zero for any negative input. If a neuron gets a negative input during training, it outputs zero gradient. The neuron gets stuck in the "off" state and never updates its parameters again.
-    *   *ReLU & Dying ReLU Example:* In an image classifier, if a neuron is designed to detect diagonal lines, and the inputs are consistently negative, it outputs $0$. Because the derivative is also $0$ for negative numbers, this neuron's weights are never updated. The neuron "dies" and stops participating in line detection.
+> **Dying ReLU:** The derivative of ReLU is zero for any negative input. If a neuron gets a negative input during training, it outputs zero gradient. The neuron gets stuck in the "off" state and never updates its parameters again.  <br /> 🔍 **Example:** In an image classifier, if a neuron is designed to detect diagonal lines, and the inputs are consistently negative, it outputs $0$. Because the derivative is also $0$ for negative numbers, this neuron's weights are never updated. The neuron "dies" and stops participating in line detection.
 *   **Leaky ReLU:** Fixes Dying ReLU by adding a small fixed slope $\alpha$ to negative inputs:
 ```math
 f(x) = \max(\alpha x, x)
 ```
-    where $\alpha$ is usually $0.01$, ensuring the gradient never drops to zero.
-    *   *Leaky ReLU Example:* Replacing ReLU with Leaky ReLU ($\alpha = 0.01$) to fix a dead line-detector neuron. When inputs are negative, the gradient is $0.01$ instead of $0$, allowing the neuron to slowly update its weights and eventually activate.
+    where $\alpha$ is usually $0.01$, ensuring the gradient never drops to zero.  <br /> 🔍 **Example:** Replacing ReLU with Leaky ReLU ($\alpha = 0.01$) to fix a dead line-detector neuron. When inputs are negative, the gradient is $0.01$ instead of $0$, allowing the neuron to slowly update its weights and eventually activate.
 *   **Parametric ReLU (PReLU):** Similar to Leaky ReLU, but the negative slope parameter $\alpha$ is not hardcoded; it is learned during training:
 ```math
 f(x) = \max(\alpha x, x)
-```
-    *   *PReLU Example:* Fine-tuning a deep convolutional network where the model automatically learns during training how much negative activation values contribute to classification accuracy.
+```  <br /> 🔍 **Example:** Fine-tuning a deep convolutional network where the model automatically learns during training how much negative activation values contribute to classification accuracy.
 > [!WARNING]
 > **PReLU Gotcha:** Because PReLU adds learnable parameters to every activation node, it increases memory requirements and the risk of overfitting on smaller datasets.
 *   **ELU (Exponential Linear Unit):** Smooths the negative slope using an exponential function:
 ```math
 f(x) = \begin{cases} \alpha(e^x - 1) & \text{if } x \le 0 \\ x & \text{if } x > 0 \end{cases}
 ```
-    It eliminates the Dying ReLU problem while keeping the mean activations closer to zero.
-    *   *ELU Example:* Training a speech recognition model where smooth gradients are crucial to prevent numerical instability across deep sequential states.
+    It eliminates the Dying ReLU problem while keeping the mean activations closer to zero.  <br /> 🔍 **Example:** Training a speech recognition model where smooth gradients are crucial to prevent numerical instability across deep sequential states.
 > [!WARNING]
 > **ELU Gotcha:** Because ELU requires computing exponential operations ($e^x$), it is computationally slower to execute than ReLU during both training and inference.
 *   **Swish Function:** A smooth, non-monotonic curve developed by Google Brain:
 ```math
 f(x) = x \cdot \sigma(\beta x) = \frac{x}{1 + e^{-\beta x}}
 ```
-    Because it is smooth and does not have a sharp corner at zero, it helps very deep networks converge faster.
-    *   *Swish Example:* In a very deep network like a Transformer model with 50 layers, using Swish prevents the gradient from shutting off abruptly and smooths the optimization surface, allowing the network to converge faster.
+    Because it is smooth and does not have a sharp corner at zero, it helps very deep networks converge faster.  <br /> 🔍 **Example:** In a very deep network like a Transformer model with 50 layers, using Swish prevents the gradient from shutting off abruptly and smooths the optimization surface, allowing the network to converge faster.
 *   **Maxout:** Returns the maximum of multiple linear combinations of the input features:
 ```math
 f(x) = \max(w_1^T x + b_1, w_2^T x + b_2)
 ```
-    Maxout generalizes both ReLU and Leaky ReLU by learning the activation function shape itself.
-    *   *Maxout Example:* Deploying high-capacity neural networks in environments where capturing complex decision boundaries justifies a larger parameter footprint.
+    Maxout generalizes both ReLU and Leaky ReLU by learning the activation function shape itself.  <br /> 🔍 **Example:** Deploying high-capacity neural networks in environments where capturing complex decision boundaries justifies a larger parameter footprint.
 > [!NOTE]
 > **Maxout Param Trick:** This is a bit of a headache, but here is the trick: Maxout does not have a fixed activation function curve. Instead, it computes the maximum of multiple linear functions. However, this doubles the number of parameters (weights and biases) for each neuron, which dramatically increases the compute and memory requirements.
 *   **Softmax Function:** Normalizes raw network outputs into a probability distribution:
 ```math
 f(x_i) = \frac{e^{x_i}}{\sum e^{x_j}}
 ```
-    The outputs add up to exactly $1.0$, which is ideal for multi-class classification.
-    *   *Softmax Example:* The final layer of a digit classifier outputs raw scores (logits) of `[1.2, 0.4, 3.8]` for classes 0, 1, and 2. Softmax transforms these scores into normalized probabilities `[0.067, 0.030, 0.903]`, showing a $90.3\%$ probability that the digit is a "2".
+    The outputs add up to exactly $1.0$, which is ideal for multi-class classification.  <br /> 🔍 **Example:** The final layer of a digit classifier outputs raw scores (logits) of `[1.2, 0.4, 3.8]` for classes 0, 1, and 2. Softmax transforms these scores into normalized probabilities `[0.067, 0.030, 0.903]`, showing a $90.3\%$ probability that the digit is a "2".
 
 ---
 
@@ -123,18 +110,15 @@ f(x_i) = \frac{e^{x_i}}{\sum e^{x_j}}
 
 Loss functions calculate the difference between the model's predictions and actual targets:
 
-*   **Cross-Entropy Loss:** Measures the discrepancy between predicted probabilities and actual labels for classification.
-    *   *Cross-Entropy Example:* In the dog image classifier, the model outputs a predicted probability of `[0.1, 0.9]` for `[Cat, Dog]`. The actual label is `[0, 1]`. Cross-Entropy calculates the error of this probability distribution.
-*   **Mean Squared Error (MSE):** Calculates the average of the squared differences between predictions and actual values for regression.
-    *   *MSE Example:* Predicting house prices. If a house is predicted to sell for \\$350,000 but sells for \\$360,000, MSE calculates the squared difference of this error, averaging it across all training rows.
+*   **Cross-Entropy Loss:** Measures the discrepancy between predicted probabilities and actual labels for classification.  <br /> 🔍 **Example:** In the dog image classifier, the model outputs a predicted probability of `[0.1, 0.9]` for `[Cat, Dog]`. The actual label is `[0, 1]`. Cross-Entropy calculates the error of this probability distribution.
+*   **Mean Squared Error (MSE):** Calculates the average of the squared differences between predictions and actual values for regression.  <br /> 🔍 **Example:** Predicting house prices. If a house is predicted to sell for \\$350,000 but sells for \\$360,000, MSE calculates the squared difference of this error, averaging it across all training rows.
 
 ---
 
 ## 4. 🚀 Deployment on AWS
 
-To deploy deep learning models, AWS provides **Deep Learning Containers (DLC)**. These are pre-packaged Docker images containing frameworks, including PyTorch and TensorFlow, optimized for high-performance training and inference on AWS GPU instances.
+To deploy deep learning models, AWS provides **Deep Learning Containers (DLC)**. These are pre-packaged Docker images containing frameworks, including PyTorch and TensorFlow, optimized for high-performance training and inference on AWS GPU instances.  <br /> 🔍 **Example:** A developer wants to run PyTorch training on a SageMaker GPU cluster. Instead of building a custom Dockerfile, compiling NVIDIA CUDA drivers, and installing PyTorch manually, they select the pre-built AWS Deep Learning Container image in their SageMaker SDK call, which automatically configures the environment.
 
-*   *DLC Example:* A developer wants to run PyTorch training on a SageMaker GPU cluster. Instead of building a custom Dockerfile, compiling NVIDIA CUDA drivers, and installing PyTorch manually, they select the pre-built AWS Deep Learning Container image in their SageMaker SDK call, which automatically configures the environment.
 
 ---
 

@@ -49,17 +49,17 @@ When a user submits a query, it is vectorized using the same embedding model. Th
 Vector databases calculate the closeness between the query vector $\vec{q}$ and document vectors $\vec{d}$ using these formulas:
 
 *   **Cosine Similarity:** Measures the cosine of the angle between two vectors. It focuses purely on direction and is independent of vector magnitude:
-    ```math
-    \text{Cosine Similarity}(\vec{q}, \vec{d}) = \frac{\vec{q} \cdot \vec{d}}{\|\vec{q}\| \|\vec{d}\|} = \frac{\sum_{i=1}^d q_i d_i}{\sqrt{\sum_{i=1}^d q_i^2} \sqrt{\sum_{i=1}^d d_i^2}}
-    ```
+```math
+\text{Cosine Similarity}(\vec{q}, \vec{d}) = \frac{\vec{q} \cdot \vec{d}}{\|\vec{q}\| \|\vec{d}\|} = \frac{\sum_{i=1}^d q_i d_i}{\sqrt{\sum_{i=1}^d q_i^2} \sqrt{\sum_{i=1}^d d_i^2}}
+```
 *   **Dot Product (Inner Product):** Computes the sum of products of coordinates. It measures both direction and magnitude (highly efficient if your vectors are normalized to unit length):
-    ```math
-    \vec{q} \cdot \vec{d} = \sum_{i=1}^d q_i d_i
-    ```
+```math
+\vec{q} \cdot \vec{d} = \sum_{i=1}^d q_i d_i
+```
 *   **Euclidean Distance (L2 Distance):** Calculates the straight-line distance between two points in multi-dimensional space. A lower L2 score indicates higher similarity:
-    ```math
-    \|\vec{q} - \vec{d}\| = \sqrt{\sum_{i=1}^d (q_i - d_i)^2}
-    ```
+```math
+\|\vec{q} - \vec{d}\| = \sqrt{\sum_{i=1}^d (q_i - d_i)^2}
+```
 
 ### Search Index Structures
 Searching millions of vectors using exact calculations (flat index) is computationally slow. Databases build index structures to speed up retrieval:

@@ -118,9 +118,9 @@ graph TD
 *   **Supervised Feedback Loop:** The model uses features ($X$) to predict a target ($\hat{Y}$). The **Loss Function** measures the error between the prediction and the ground truth. An **Optimizer** calculates gradients and updates parameters to minimize that loss.
 *   **Unsupervised Clustering Loop:** Algorithms, including K-Means, place cluster centers (centroids) in vector space. They assign data points to the closest centroid based on distance, and then recalculate the centroid positions. They repeat this loop until the centroids stop moving.
 *   **Reinforcement Learning Loop:** The **Agent** looks at the current **State** ($s_t$) of the **Environment**. It chooses an **Action** ($a_t$) based on its **Policy** ($\pi$). The environment returns a **Reward** ($r_{t+1}$) and transitions to the next state ($s_{t+1}$). The goal is to maximize the expected discounted return over time:
-    ```math
-    G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
-    ```
+```math
+G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
+```
 
 > [!NOTE]
 > **Jargon Buster:** **Discount Factor ($\gamma$)** is a value between $0$ and $1$ that determines how much the model values immediate rewards versus long-term rewards. If it is close to $0$, the model is short-sighted; if it is close to $1$, it cares about long-term payoffs.

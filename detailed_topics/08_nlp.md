@@ -82,14 +82,14 @@ Now we can run downstream NLP tasks:
 ### Phase 4: Vector Embeddings & Vector Space
 The ultimate goal of the preprocessing and syntactic analysis is often to convert unstructured text into numbers that a neural network can actually compute. This is where vector embeddings and vector spaces come in:
 *   **Vector:** A mathematical representation of length and direction, represented as a one-dimensional array of numbers:
-    ```math
-    \vec{v} = [v_1, v_2, \dots, v_d]^T \in \mathbb{R}^d
-    ```
+```math
+\vec{v} = [v_1, v_2, \dots, v_d]^T \in \mathbb{R}^d
+```
 *   **Embeddings:** High-dimensional vector representations of text where semantic meanings are mapped into a continuous, multi-dimensional **Vector Space**. Words or phrases with similar semantic meaning will have vectors that are clustered closer together in this space.
 *   **Closeness Metrics (Cosine Similarity):** To measure semantic similarity between two text snippets, models compute the cosine of the angle between their respective vectors. A cosine similarity of $1$ means the vectors point in the exact same direction (highest similarity), whereas $0$ indicates orthogonality (no similarity):
-    ```math
-    \text{Cosine Similarity}(\vec{u}, \vec{v}) = \frac{\vec{u} \cdot \vec{v}}{\|\vec{u}\| \|\vec{v}\|} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}
-    ```
+```math
+\text{Cosine Similarity}(\vec{u}, \vec{v}) = \frac{\vec{u} \cdot \vec{v}}{\|\vec{u}\| \|\vec{v}\|} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}
+```
 *   **External Memory & Multi-Modal Alignment:** Embeddings can act as "external memory" for ML models, representing concepts in a model-agnostic mathematical space. They can be shared across models to enable multi-modal coordination (e.g., mapping a text embedding of `"dog"` to a vision model's image embedding of a dog in the same vector space).
     *   *Vector Embeddings Example:* Mapping the words `"king"` and `"queen"` to vectors in a $768$-dimensional space. Because they represent related concepts of royalty, their cosine similarity is high (e.g., $0.85$). In contrast, the similarity between `"king"` and `"banana"` would be close to $0$ (e.g., $0.05$).
     > [!WARNING]

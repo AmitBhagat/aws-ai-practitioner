@@ -37,8 +37,8 @@ To prevent this, you must select the right storage configuration:
 *   **Amazon S3 (Simple Storage Service):** The default object storage system for machine learning. S3 acts as the primary data lake repository where raw datasets, model checkpoints, and final model output archives (`model.tar.gz`) are stored.
     *   *Mechanism:* SageMaker training jobs pull data from S3 using two data input modes:
         1.  *File Mode (Default):* Downloads the entire dataset from S3 to the training instance's local EBS volume before training begins.
-            *   > [!WARNING]
-                > **File Mode Startup Penalty:** If your dataset is huge (e.g., $1\text{ TB}$ of data), your training instance will sit idle for hours downloading files before running the first epoch, generating substantial idle-compute costs.
+> [!WARNING]
+> **File Mode Startup Penalty:** If your dataset is huge (e.g., $1\text{ TB}$ of data), your training instance will sit idle for hours downloading files before running the first epoch, generating substantial idle-compute costs.
         2.  *Fast File Mode:* Streams data directly from S3 to the training script as a virtual local directory mount. This eliminates startup download times.
 *   **Amazon EFS (Elastic File System):** A fully managed, elastic network file system. EFS allows you to mount a shared directory across multiple notebooks, developer workspaces, or training nodes, allowing developers to share code libraries and config files.
 *   **Amazon FSx for Lustre:** A high-performance, parallel file system designed for compute-heavy workloads. FSx for Lustre mirrors your S3 bucket, caching active files and serving them with sub-millisecond latencies and millions of IOPS.
@@ -72,8 +72,8 @@ A continuous, low-latency HTTP endpoint hosted on dedicated, always-on compute i
 A serverless endpoint that automatically scales compute capacity in response to traffic, scaling down to **zero** when idle.
 *   *Pricing:* Pay-per-use, billed per millisecond of active execution time and data payload size. No costs when idle.
 *   *Primary Use Case:* Applications with highly intermittent, unpredictable, or bursty traffic patterns (e.g., an internal HR chatbot used sporadically during the day).
-*   > [!WARNING]
-    > **Cold-Start Latency:** If the endpoint has been idle and scales down to zero, the first incoming request will experience a "cold start" (latency delay of several seconds) while SageMaker provisions a new container backend. Avoid Serverless Inference if sub-second latency is a strict SLA.
+> [!WARNING]
+> **Cold-Start Latency:** If the endpoint has been idle and scales down to zero, the first incoming request will experience a "cold start" (latency delay of several seconds) while SageMaker provisions a new container backend. Avoid Serverless Inference if sub-second latency is a strict SLA.
 
 ### C. Asynchronous Inference
 An endpoint designed for heavy payloads or long processing times. Incoming requests are queued in an Amazon SQS queue, processed asynchronously, and the final predictions are written to an S3 bucket.

@@ -44,8 +44,8 @@ Amazon SageMaker is the flagship platform for building, training, and deploying 
 A graphical interface for business analysts to build ML models without writing code.
 *   **AutoML / Autopilot:** Automates data preparation (via Data Wrangler), feature engineering, model selection, and hyperparameter tuning.
 *   **Problem Types:** Binary classification, multi-class classification, linear regression, and time-series forecasting. Requires training data in **CSV format** for tabular tasks.
-*   > [!CAUTION]
-    > **Workspace Cost Hazard:** SageMaker Canvas provisions a dedicated workspace instance costing **\$1.90 per hour**. Closing the browser tab does *not* terminate the instance. You must explicitly click the "Log out" button in the bottom-left corner of the Canvas UI to stop hourly billing.
+> [!CAUTION]
+> **Workspace Cost Hazard:** SageMaker Canvas provisions a dedicated workspace instance costing **\$1.90 per hour**. Closing the browser tab does *not* terminate the instance. You must explicitly click the "Log out" button in the bottom-left corner of the Canvas UI to stop hourly billing.
 
 ### SageMaker Developer Tools
 *   **SageMaker Python SDK:** An open-source Python library to train and deploy models using `Estimators` and the `.fit()` method.

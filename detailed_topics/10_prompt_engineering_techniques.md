@@ -16,8 +16,8 @@ The simplest way to guide a model is through the quantity of context examples pr
         Review: "The battery died after two hours of use."
         Sentiment:
         ```
-    *   > [!WARNING]
-        > **Zero-Shot Gotcha:** Zero-shot prompting is highly susceptible to formatting drift and hallucination when dealing with complex, multi-faceted constraints. If the model must output rigid JSON, zero-shot prompts frequently return conversational filler (e.g., "Sure, here is the classification: Positive") which crashes automated parser APIs.
+> [!WARNING]
+> **Zero-Shot Gotcha:** Zero-shot prompting is highly susceptible to formatting drift and hallucination when dealing with complex, multi-faceted constraints. If the model must output rigid JSON, zero-shot prompts frequently return conversational filler (e.g., "Sure, here is the classification: Positive") which crashes automated parser APIs.
 *   **Few-Shot Prompting:** The model is provided with a task description and a small set of structured, in-context examples showing inputs paired with correct outputs.
     *   *Real-World Analogy:* Handing a line cook a recipe card along with three physical plates showing exactly how the finished dish must be plated and garnished before they start cooking.
     *   *Few-Shot Example:*
@@ -33,8 +33,8 @@ The simplest way to guide a model is through the quantity of context examples pr
         Review: "The battery died after two hours of use."
         Sentiment:
         ```
-    *   > [!IMPORTANT]
-        > **Few-Shot Selection Bias:** This is a bit of a headache, but here is the trick: LLMs are highly sensitive to the order, distribution, and formatting of few-shot examples. If you supply three positive examples and only one negative example, the model's output distribution shifts towards positive classifications due to **recency bias** and **frequency bias**. You must keep few-shot examples balanced and randomly ordered.
+> [!IMPORTANT]
+> **Few-Shot Selection Bias:** This is a bit of a headache, but here is the trick: LLMs are highly sensitive to the order, distribution, and formatting of few-shot examples. If you supply three positive examples and only one negative example, the model's output distribution shifts towards positive classifications due to **recency bias** and **frequency bias**. You must keep few-shot examples balanced and randomly ordered.
 
 ---
 

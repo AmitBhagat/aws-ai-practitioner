@@ -74,18 +74,18 @@ To build, align, and run foundation models efficiently, developers guide them th
     *   *Pre-training Example:* Feeding a model 1 trillion words from web pages, books, and code repositories to teach it grammar patterns and general facts about the world.
 *   **Model Fine-Tuning:** Retraining all of a pre-trained model's parameter weights on a smaller, domain-specific dataset.
     *   *Fine-Tuning Example:* Retraining Llama 3 on medical diagnostic charts to align its outputs for clinical QA.
-    > [!WARNING]
-    > **Fine-Tuning Gotcha:** Catastrophic Forgetting. If you fine-tune a model on a narrow task without keeping a balanced dataset, it will lose its general reasoning abilities (e.g., a medical model forgetting basic math).
+> [!WARNING]
+> **Fine-Tuning Gotcha:** Catastrophic Forgetting. If you fine-tune a model on a narrow task without keeping a balanced dataset, it will lose its general reasoning abilities (e.g., a medical model forgetting basic math).
 *   **Single-Layer Fine-Tuning (Freezing):** Freezing all layers of the pre-trained network except for the final output layer, and only updating the parameters of that final layer.
     *   *Freezing Example:* Training a sentiment classifier by freezing the entire Transformer backbone and only updating the weights of the final classification projection layer.
-    > [!NOTE]
-    > **Freezing Trick:** This is a bit of a headache, but here is the trick: freezing the backbone parameters is highly cost-effective because you only compute gradients for the final layer, reducing GPU VRAM usage. It also acts as a shield against catastrophic forgetting by preserving the original pre-trained representations.
+> [!NOTE]
+> **Freezing Trick:** This is a bit of a headache, but here is the trick: freezing the backbone parameters is highly cost-effective because you only compute gradients for the final layer, reducing GPU VRAM usage. It also acts as a shield against catastrophic forgetting by preserving the original pre-trained representations.
 *   **Model Pruning:** Removing unnecessary parameters (connections or neurons) to make the model smaller and faster with minimal loss of accuracy.
     *   **Train-time Pruning:** Encouraging the model to drop connections during the training phase (e.g., using L1 regularization to drive weights to zero).
     *   **Post-training Pruning:** Modifying the weights file directly after training is complete, identifying and zeroing out low-value parameters.
     *   *Pruning Example:* Deleting $20\%$ of the weights that are close to $0.0$, compressing the model file size from $10\text{ GB}$ to $8\text{ GB}$ to allow deployment on consumer edge devices.
-    > [!WARNING]
-    > **Pruning Gotcha:** Sparse matrix slowdown. If you prune weights randomly, you create sparse matrices. Unless your target hardware has specialized kernels optimized for sparse matrix math, a sparse model can actually run *slower* than its dense counterpart.
+> [!WARNING]
+> **Pruning Gotcha:** Sparse matrix slowdown. If you prune weights randomly, you create sparse matrices. Unless your target hardware has specialized kernels optimized for sparse matrix math, a sparse model can actually run *slower* than its dense counterpart.
 *   **RLHF (Reinforcement Learning from Human Feedback):** Aligning model outputs with human preferences regarding helpfulness and safety.
     *   *RLHF Example:* Presenting human evaluators with two model outputs for the same prompt. The evaluators select the safer response, training a reward model to penalize toxic or harmful outputs.
 *   **Hallucination:** Occurs when the model generates semantically plausible but factually incorrect outputs.

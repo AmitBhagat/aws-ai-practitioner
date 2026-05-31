@@ -190,8 +190,8 @@ Before feeding text to a model, we must clean it up:
 *   **Contraction Expansion:** Converting words, including converting `"don't"` to `"do not"`, to keep your grammar consistent.
 *   **Sanitization:** Removing HTML tags, emojis, and non-ASCII characters from the text.
 *   **Stop Word Removal:** Deleting common words, including `"the"`, `"and"`, and `"is"`, to shrink your vocabulary.
-    > [!WARNING]
-    > **Stop Word Gotcha:** Do not remove stop words if you are training sentiment analysis models or generative LLMs. Removing words, including `"not"` or `"no"`, completely flips the meaning of a sentence (for example, `"not happy"` becomes `"happy"`).
+> [!WARNING]
+> **Stop Word Gotcha:** Do not remove stop words if you are training sentiment analysis models or generative LLMs. Removing words, including `"not"` or `"no"`, completely flips the meaning of a sentence (for example, `"not happy"` becomes `"happy"`).
 *   **Stemming:** A crude, rule-based approach that chops off the ends of words. For example, `"connecting"`, `"connected"`, and `"connection"` all get hacked down to the stem `"connect"`. It is fast but can create non-dictionary words.
 *   **Lemmatization:** A smart, linguistic approach that looks up words in a dictionary to find their base form, which is known as the **lemma**. For example, `"better"` maps to `"good"`, and `"running"` maps to `"run"`.
 
@@ -368,8 +368,8 @@ P(\text{Class} \vert \text{Features}) \propto P(\text{Class}) \prod P(\text{Feat
 Clustering groups unlabeled data points based on spatial closeness:
 
 *   **K-Means:** Partitions data into $K$ groups. It initializes $K$ center points (centroids), assigns each data point to its closest centroid using Euclidean distance, and recalculates the centroid coordinates as the average of the group. The loop runs until centroids stop shifting.
-    > [!WARNING]
-    > **Centroid Distortion:** Outliers can pull centroids far away from their true groups. You must define $K$ in advance, which is typically found by plotting within-cluster variance and finding the "elbow" point.
+> [!WARNING]
+> **Centroid Distortion:** Outliers can pull centroids far away from their true groups. You must define $K$ in advance, which is typically found by plotting within-cluster variance and finding the "elbow" point.
 *   **DBScan:** Groups points based on local density. It looks for core points that have a minimum number of neighbors (`minSamples`) within a specified radius (`eps`). Points that are isolated are marked as noise.
 *   **K-Modes:** An extension of K-means designed for categorical data, using modes and matching distance metrics instead of averages and Euclidean distance.
 

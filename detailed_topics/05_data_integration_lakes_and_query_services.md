@@ -50,8 +50,8 @@ AWS Glue is a fully managed, serverless data integration service that extracts, 
     1.  *Python Shell:* For running lightweight, single-node Python scripts that do not require massive distributed processing.
     2.  *Apache Spark:* For running heavy, distributed data transformation workloads across a cluster of serverless nodes.
     3.  *Ray (Preview):* A modern, open-source distributed compute framework designed for scaling Python libraries, serving as a Python-centric alternative to Spark.
-    > [!NOTE]
-    > **JVM-less Ray Trick:** This is a bit of a headache, but here is the trick: while Spark runs on a heavy JVM (Java Virtual Machine) backend which adds significant startup overhead and makes integrating native C++ scientific Python libraries (like NumPy, Pandas, or PyTorch) a complex packaging nightmare, Ray runs directly on a lightweight C++ engine designed specifically for dynamic, distributed Python script execution. It lets you scale arbitrary Python functions with zero JVM overhead.
+> [!NOTE]
+> **JVM-less Ray Trick:** This is a bit of a headache, but here is the trick: while Spark runs on a heavy JVM (Java Virtual Machine) backend which adds significant startup overhead and makes integrating native C++ scientific Python libraries (like NumPy, Pandas, or PyTorch) a complex packaging nightmare, Ray runs directly on a lightweight C++ engine designed specifically for dynamic, distributed Python script execution. It lets you scale arbitrary Python functions with zero JVM overhead.
     *   *DPU Billing:* Spark and Ray jobs are charged per Data Processing Unit (DPU) hour. A standard Spark job allocates a minimum of $D_{\text{min}} = 10$ DPUs (or $D_{\text{stream}} = 2$ DPUs for Spark streaming jobs), while a Ray job allocates a minimum of $D_{\text{ray}} = 6$ DPUs. Python Shell jobs use fractional DPUs (specifically, $D_{\text{shell}} = 0.0625$ DPUs).
     *   *Glue Engine Example:* An engineer writes a memory-intensive deduplication job to clean 10 billion records. They select the Apache Spark engine and configure a cluster allocating $20$ DPUs to scale the workload horizontally. For a simple schema check, they write a Python Shell script that runs on a single host using $0.0625$ DPUs to save compute cost.
 *   **AWS Glue Data Catalog:** A centralized metadata repository that is fully compatible with Apache Hive metastores. It stores schemas, table definitions, and partition paths.
@@ -60,11 +60,11 @@ AWS Glue is a fully managed, serverless data integration service that extracts, 
 *   **AWS Glue Crawler:** A background process that connects to data stores, parses files, infers schemas, and writes tables in the Glue Data Catalog:
     *   *Data Sources:* Automatically scans S3, JDBC-compatible databases (including Amazon RDS, PostgreSQL, and MySQL), Amazon DynamoDB, and MongoDB.
     *   *Crawler Example:* A crawler runs nightly against an Amazon RDS PostgreSQL database. The crawler connects via JDBC, scans new columns added by developers during the day, infers the data types, and updates the table schema in the Glue Data Catalog without manual intervention.
-    > [!WARNING]
-    > **Crawler Schema Drift Gotcha:** When underlying S3 data schemas change (e.g., columns are added, removed, or changed), you must configure how the Crawler handles the schema drift in the catalog:
-    > 1. *Update the table definition (Default):* Automatically appends new columns and updates column data types.
-    > 2. *Add new columns only:* Appends new columns but leaves old, deleted columns intact in the metadata.
-    > 3. *Ignore the change:* Leaves the table definition static, which can cause downstream query engines to crash due to schema mismatches.
+> [!WARNING]
+> **Crawler Schema Drift Gotcha:** When underlying S3 data schemas change (e.g., columns are added, removed, or changed), you must configure how the Crawler handles the schema drift in the catalog:
+> 1. *Update the table definition (Default):* Automatically appends new columns and updates column data types.
+> 2. *Add new columns only:* Appends new columns but leaves old, deleted columns intact in the metadata.
+> 3. *Ignore the change:* Leaves the table definition static, which can cause downstream query engines to crash due to schema mismatches.
 *   **AWS Glue Data Quality:** Measures, monitors, and validates data health:
     *   *DQDL (Data Quality Definition Language):* A language for writing validation rules, built on the open-source Deequ framework on Apache Spark.
     *   *Data Quality Example:* A data engineer writes a DQDL rule: `RowCount > 500` and `IsComplete "customer_email"` to validate incoming CRM files. If a file arrives with blank email rows, the quality check fails, notifying the operations team and halting the downstream training pipeline.
@@ -149,8 +149,8 @@ The successor to Amazon Elasticsearch Service, OpenSearch is a distributed searc
 
 *   **Deployment Options:**
     *   **Provisioned Domains:** You explicitly select and provision specific compute instances (e.g., `t3.small.search` for dev testing, or `r6g.large.search` for memory-heavy production vector lookups) and attach General Purpose SSD EBS storage volumes (e.g., `gp3`).
-        > [!WARNING]
-        > **EBS Volume Bottleneck:** If your search indices exceed the configured EBS volume storage capacity of your provisioned nodes, your domain status will flip to Red, locking up your database and halting all ML embedding vector queries. You must write CloudWatch alerts or configure auto-scaling storage rules.
+> [!WARNING]
+> **EBS Volume Bottleneck:** If your search indices exceed the configured EBS volume storage capacity of your provisioned nodes, your domain status will flip to Red, locking up your database and halting all ML embedding vector queries. You must write CloudWatch alerts or configure auto-scaling storage rules.
     *   **OpenSearch Serverless:** Automatically provisions, scales, and manages compute capacity based on workloads, billed per OpenSearch Compute Unit (OCU) hour.
 *   **ML Vector Store:** Stores vector embeddings generated by machine learning models.
 *   **K-Nearest Neighbor (KNN) Search:** Computes vector similarity to find related embeddings.

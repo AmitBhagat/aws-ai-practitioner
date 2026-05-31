@@ -47,8 +47,8 @@ P(Y=1 \vert X) = \sigma(z) = \frac{1}{1 + e^{-z}}
 d(x, y) = \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{1/p}
 ```
         where $p \ge 1$ is a parameter.
-        > [!NOTE]
-        > **Minkowski Trick:** This is a bit of a headache, but here is the trick: Minkowski is a generalized formula. If you set $p = 1$, it collapses mathematically into Manhattan distance. If you set $p = 2$, it collapses into Euclidean distance.
+> [!NOTE]
+> **Minkowski Trick:** This is a bit of a headache, but here is the trick: Minkowski is a generalized formula. If you set $p = 1$, it collapses mathematically into Manhattan distance. If you set $p = 2$, it collapses into Euclidean distance.
     *   *Hamming Distance:* $d(x, y) = \sum \mathbb{I}(x_i \neq y_i)$, which counts the number of differences between categorical values.
     *   *KNN Distance Metrics Example:* Recommending movie genres based on user age and streaming hours. If a user is located near $k = 5$ neighboring profiles on a spatial grid, and $4$ of those neighbors stream Action movies, the model assigns the class label "Action" to the user. Euclidean computes straight-line distance, Manhattan computes grid-line distance, Minkowski generalizes them using parameter $p$, and Hamming compares categorical profiles (for example, comparing `["Premium", "Active"]` with `["Standard", "Active"]` yields a Hamming distance of $1$).
 *   **Support Vector Machine (SVM):** Finds the widest street that separates two classes of data points. If the classes are mixed together, it uses the **kernel trick** to project the data into a higher dimension where they can be separated by a flat plane. A popular option is the Radial Basis Function (RBF) kernel:
@@ -56,8 +56,8 @@ d(x, y) = \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{1/p}
 K(x, y) = \exp(-\gamma \|x - y\|^2)
 ```
     *   *SVM Example:* Classifying emails as Spam or Ham. The SVM draws a boundary line that maximizes the margin (separation distance) between the closest spam and safe emails (the support vectors). If spam and safe emails are mixed together in $2\text{D}$ space, the RBF kernel projects the data into a higher-dimensional space where a flat sheet of paper (hyperplane) can cleanly partition them.
-    > [!TIP]
-    > **Kernel Analogy:** Imagine putting blue and red marbles on a table, all mixed up. You cannot draw a straight line to separate them. But if you hit the table from underneath so they bounce up into the air (a higher dimension), you could easily slide a sheet of paper (a hyperplane) between them.
+> [!TIP]
+> **Kernel Analogy:** Imagine putting blue and red marbles on a table, all mixed up. You cannot draw a straight line to separate them. But if you hit the table from underneath so they bounce up into the air (a higher dimension), you could easily slide a sheet of paper (a hyperplane) between them.
 *   **Decision Tree:** Works like a game of $20$ Questions. It splits data at feature thresholds to maximize the purity of the resulting groups.
     *   *Entropy:* $H(S) = -\sum p_i \log_2 p_i$ (measures randomness).
     *   *Gini Impurity:* $G(S) = 1 - \sum p_i^2$ (measures classification error probability).
@@ -79,8 +79,8 @@ Clustering groups unlabeled data points based on spatial closeness:
 
 *   **K-Means:** Partitions data into $K$ groups. It initializes $K$ center points (centroids), assigns each data point to its closest centroid using Euclidean distance, and recalculates the centroid coordinates as the average of the group. The loop runs until centroids stop shifting.
     *   *K-Means Example:* Segmenting a customer database. The model initializes $K=3$ centroids representing low, medium, and high spenders. Customers are grouped by proximity to these centroids, and the coordinates are updated iteratively until the clusters stabilize.
-    > [!WARNING]
-    > **Centroid Distortion:** Outliers can pull centroids far away from their true groups. You must define $K$ in advance, which is typically found by plotting within-cluster variance and finding the "elbow" point.
+> [!WARNING]
+> **Centroid Distortion:** Outliers can pull centroids far away from their true groups. You must define $K$ in advance, which is typically found by plotting within-cluster variance and finding the "elbow" point.
 *   **DBScan:** Groups points based on local density. It looks for core points that have a minimum number of neighbors (`minSamples`) within a specified radius (`eps`). Points that are isolated are marked as noise.
     *   *DBScan Example:* Grouping warehouse delivery locations. DBScan clusters addresses where at least `minSamples = 5` addresses are located within a search radius of `eps = 100` meters, allowing it to find arbitrary street-shaped clusters while marking isolated rural houses as noise.
 *   **K-Modes:** An extension of K-means designed for categorical data, using modes and matching distance metrics instead of averages and Euclidean distance.
@@ -104,8 +104,8 @@ Association Rule Learning is a rule-based unsupervised learning method used to d
 \text{Lift}(A \implies B) = \frac{P(A \cap B)}{P(A)P(B)} = \frac{\text{Support}(A \cap B)}{\text{Support}(A) \times \text{Support}(B)}
 ```
     *   *Association Rule Example (Market Basket Analysis):* A supermarket scans transaction records to find buying patterns. The algorithm uncovers the rule `"If bread, then butter"` ($A \implies B$). Out of $10,000$ transactions, $1,000$ contain both items (Support = $10\%$). Among the $2,000$ transactions containing bread, $1,000$ also contain butter (Confidence = $50\%$). If the overall probability of buying butter is $20\%$, the Lift is $0.50 / 0.20 = 2.5$, meaning customers who buy bread are $2.5$ times more likely to buy butter than random shoppers.
-    > [!WARNING]
-    > **Association Gotcha:** Spurious correlations. If you have thousands of unique items, you will find high-confidence rules purely by random chance on rare item combinations. To avoid this, you must set strict minimum thresholds for Support and Lift to prune out statistically insignificant relationships.
+> [!WARNING]
+> **Association Gotcha:** Spurious correlations. If you have thousands of unique items, you will find high-confidence rules purely by random chance on rare item combinations. To avoid this, you must set strict minimum thresholds for Support and Lift to prune out statistically insignificant relationships.
 
 ---
 

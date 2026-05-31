@@ -31,8 +31,8 @@ When running a training job on Amazon SageMaker, the training container runs you
 Think of hyperparameters like selecting the transmission gear, setting the speed limit, or choosing your route. In machine learning, these settings include:
 
 *   **Learning Rate ($\eta$):** Controls the step size the optimizer takes when updating weights in response to training errors.
-    > [!CAUTION]
-    > If the learning rate ($\eta$) is too high, the model will overshoot the minimum loss and fail to converge. If it is too low, the training process will be distractingly slow.
+> [!CAUTION]
+> If the learning rate ($\eta$) is too high, the model will overshoot the minimum loss and fail to converge. If it is too low, the training process will be distractingly slow.
     *   *Learning Rate Example:* If $\eta$ is set too high (for example, $\eta = 0.5$), the optimizer takes huge steps and overshoots the minimum loss point, causing training metrics to oscillate wildly. If set too low (for example, $\eta = 0.00001$), the weight updates are tiny, requiring days of compute time to converge.
 *   **Batch Size:** The number of training samples processed in a single batch before model parameters are updated.
     *   *Batch Size Example:* Setting the batch size to $32$ means the model processes 32 training images, averages their loss gradients, updates its weights once, and then processes the next 32 images.
@@ -58,8 +58,8 @@ Instead of manually tweaking settings, you can run **SageMaker Hyperparameter Tu
     *   *Random Search Example:* Tuning learning rate over `[0.001, 0.1]` and batch size over `[16, 128]`. Random Search randomly picks combinations (for example, Job 1 uses (0.043, 87), Job 2 uses (0.008, 22)), running a specified budget of jobs (for example, 10 jobs) to find the best configuration.
 3.  **Bayesian Optimization:** Fits a probabilistic model to past training runs, balancing exploration of new ranges and exploitation of known good settings to find the best configuration quickly.
     *   *Bayesian Optimization Example:* Tuning learning rate. The optimizer runs Job 1 with a learning rate of $0.05$ and gets a validation accuracy of $75\%$. It runs Job 2 at $0.01$ and gets $82\%$.
-    > [!NOTE]
-    > **Bayesian Optimization Trick:** This is a bit of a headache, but here is the trick: Bayesian optimization fits a surrogate probabilistic model (like a Gaussian Process) to predict how validation loss changes with hyperparameter tweaks. It balances exploration (testing unknown ranges) and exploitation (refining known good settings) to find the best configuration with the fewest runs.
+> [!NOTE]
+> **Bayesian Optimization Trick:** This is a bit of a headache, but here is the trick: Bayesian optimization fits a surrogate probabilistic model (like a Gaussian Process) to predict how validation loss changes with hyperparameter tweaks. It balances exploration (testing unknown ranges) and exploitation (refining known good settings) to find the best configuration with the fewest runs.
 
 ---
 

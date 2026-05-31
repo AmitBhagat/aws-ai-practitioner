@@ -67,7 +67,7 @@ P(T_i \mid T_{i-1}, T_{i-2}, \dots, T_1)
         ```
 *   **Self-Consistency:** An advanced extension of CoT. Instead of running a single deterministic inference run, we set the model's Temperature hyperparameter high (e.g., $0.7$) to generate a variety of diverse reasoning paths. We sample $M$ independent reasoning paths, extract the final numerical or categorical answer from each path, and select the final answer using a majority vote:
 ```math
-\text{Final Answer} = \operatorname{arg\,max}_{A} \sum_{i=1}^M \mathbb{I}(A_i = A)
+\text{Final Answer} = \text{argmax}_{A} \sum_{i=1}^M \mathbb{I}(A_i = A)
 ```
     where $\mathbb{I}$ is the indicator function evaluating to $1$ if the path's answer $A_i$ matches candidate answer $A$, and $0$ otherwise.
     *   *Self-Consistency Example:* Generating 5 different Chain-of-Thought runs for a math puzzle. Run 1 yields `14`, Run 2 yields `12`, Run 3 yields `14`, Run 4 yields `14`, and Run 5 yields `14`. The self-consistency algorithm registers a $4/5$ majority vote for `14`, successfully filtering out the reasoning error in Run 2.

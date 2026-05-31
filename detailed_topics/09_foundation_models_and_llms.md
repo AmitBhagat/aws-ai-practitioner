@@ -30,13 +30,19 @@ Here is how text routes through a Transformer:
         *   *SentencePiece:* Used by GPT-3.5 and T5. Treats the input as a raw byte stream, making it language-independent and omitting the need for pre-segmenting whitespace.
     *   *Tokenization Example:* The word `"unbelievable"` is processed by a Byte-Pair Encoding tokenizer and split into three sub-word tokens: `["un", "believ", "able"]`. These tokens are mapped to vocabulary integers, including `[421, 8912, 104]`, and then converted to high-dimensional embedding vectors.
 2.  **Positional Encoding:** Adds order information to the vectors using sine and cosine waves:
-    $$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
-    $$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)$$
+    $$
+    PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+    $$
+    $$
+    PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+    $$
     This ensures the model knows the difference between "dog bites man" and "man bites dog."
     *   *Positional Encoding Example:* In the sentences `"Not good, but bad"` and `"Bad, but not good"`. Positional wave values are added to the token embeddings. The token `"not"` receives different coordinates in each sentence, preventing the model from confusing the two meanings.
 3.  **Multi-Head Attention:** Calculates the relative importance and context of words in a sequence. The model maps tokens to **Queries ($Q$)**, **Keys ($K$)**, and **Values ($V$)** (similar to a database lookup system).
     *   **Self-Attention:** Computes attention weights within the same sequence:
-        $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
+        $$
+        \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+        $$
         *   *Self-Attention Example:* Processing `"The animal did not cross the street because it was tired"`. The self-attention block projects the token `"it"` into $Q$, and projects `"animal"` and `"street"` into $K$. The dot product $\frac{QK^T}{\sqrt{d_k}}$ yields a high attention score between `"it"` and `"animal"`, letting the model link the pronoun to the correct subject.
     *   **Cross-Attention:** Computes attention weights between two different sequences (e.g., mapping an English input sequence from the encoder to a Spanish output sequence in the decoder during translation).
         *   *Cross-Attention Example:* Translating English to Spanish. The encoder processes `"The red house"` bidirectionally. During generation, the decoder's cross-attention block queries the encoder's output representations for `"house"` and `"red"` to output `"La casa roja"`, matching Spanish grammatical ordering rules.
@@ -47,7 +53,9 @@ Here is how text routes through a Transformer:
 ## 3. ⚠️ Token Resource Dynamics & Context Limits
 
 Each active token in a sequence consumes GPU memory (VRAM) and requires additional matrix calculations. Because self-attention evaluates all tokens against all other tokens, memory and compute requirements scale quadratically:
-$$\mathcal{O}(N^2)$$
+$$
+\mathcal{O}(N^2)
+$$
 where $N$ represents the sequence length. If you double your prompt length, the hardware requirements increase fourfold.
 
 *   *Context Window Bottleneck Example:* Processing a $1,000$-token prompt requires 1 million attention score comparisons ($1000^2$). If the prompt length increases to $10,000$ tokens, the calculations grow to 100 million comparisons ($10000^2$), requiring substantial GPU VRAM.
@@ -100,7 +108,7 @@ When deploying models in the Amazon Bedrock console, you can configure these gen
 
 ### 💰 Bedrock Billing Modes
 *   **On-Demand:** A pay-as-you-go model where you are billed per $1000$ input and output tokens.
-    *   *On-Demand Example:* Querying Claude 3 on Bedrock. You are billed exactly $\$0.003$ per $1,000$ input tokens and $\$0.015$ per $1,000$ output tokens based on usage.
+    *   *On-Demand Example:* Querying Claude 3 on Bedrock. You are billed exactly \\$0.003 per $1,000$ input tokens and \\$0.015 per $1,000$ output tokens based on usage.
 *   **Provisioned Throughput:** Allocates dedicated capacity represented by Model Units (MUs) with a 1-month or 6-month commitment. This mode is required if you want to deploy custom fine-tuned models.
     *   *Provisioned Throughput Example:* An enterprise deploys a custom, fine-tuned Titan model. They purchase 1 Model Unit (MU) with a 1-month commitment, guaranteeing a throughput of 100 tokens per second, paying a flat hourly rate regardless of usage.
 

@@ -45,7 +45,7 @@ A graphical interface for business analysts to build ML models without writing c
 *   **AutoML / Autopilot:** Automates data preparation (via Data Wrangler), feature engineering, model selection, and hyperparameter tuning.
 *   **Problem Types:** Binary classification, multi-class classification, linear regression, and time-series forecasting. Requires training data in **CSV format** for tabular tasks.
 *   > [!CAUTION]
-    > **Workspace Cost Hazard:** SageMaker Canvas provisions a dedicated workspace instance costing **$1.90 per hour**. Closing the browser tab does *not* terminate the instance. You must explicitly click the "Log out" button in the bottom-left corner of the Canvas UI to stop hourly billing.
+    > **Workspace Cost Hazard:** SageMaker Canvas provisions a dedicated workspace instance costing **\$1.90 per hour**. Closing the browser tab does *not* terminate the instance. You must explicitly click the "Log out" button in the bottom-left corner of the Canvas UI to stop hourly billing.
 
 ### SageMaker Developer Tools
 *   **SageMaker Python SDK:** An open-source Python library to train and deploy models using `Estimators` and the `.fit()` method.
@@ -97,7 +97,7 @@ AWS provides serverless APIs for speech, text, translation, search, and recommen
     *   *Comprehend Flywheel:* Automates the continuous training, evaluation, and versioning of custom classification or entity detection models by feeding new labeled datasets from S3.
 *   **Amazon Kendra:** An enterprise search engine that uses ML and semantic query understanding to retrieve answers from unstructured documents.
     *   *Connectors:* Automatically index folders in Amazon S3, Salesforce, SharePoint, ServiceNow, Confluence, and relational databases.
-    *   *Cost Trap:* Default API deployments provision the **Enterprise Edition ($1.40/hour)**. Make sure to select the Developer Edition for development environments to save money.
+    *   *Cost Trap:* Default API deployments provision the **Enterprise Edition (\$1.40/hour)**. Make sure to select the Developer Edition for development environments to save money.
 *   **Amazon Personalize:** Generates real-time product recommendations.
     *   *Interactions Dataset (Required):* Contains `USER_ID`, `ITEM_ID`, and a Unix `TIMESTAMP`.
     > [!IMPORTANT]

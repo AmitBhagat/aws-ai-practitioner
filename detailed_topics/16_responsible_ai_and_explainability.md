@@ -40,22 +40,30 @@ Let $D$ represent our training dataset containing a demographic facet $A$. Let $
 
 ### A. Class Imbalance (CI)
 CI measures the raw distribution inequality of data rows between the favored and disfavored facets in the dataset. It ranges from $-1.0$ to $+1.0$:
-$$CI = \frac{n_a - n_d}{n_a + n_d}$$
+$$
+CI = \frac{n_a - n_d}{n_a + n_d}
+$$
 where $n_a$ is the number of rows belonging to the favored facet $a$, and $n_d$ is the number of rows belonging to the disfavored facet $d$.
 *   *Interpretation:* A CI value close to $+1.0$ indicates that the favored group dominates the dataset, meaning the model will have insufficient data to learn representations of the disfavored group (high risk of sampling bias).
 
 ### B. Difference in Proportions of Labels (DPL)
 DPL calculates the difference in positive outcomes received by the favored and disfavored groups. It ranges from $-1.0$ to $+1.0$:
-$$DPL = q_a - q_d$$
+$$
+DPL = q_a - q_d
+$$
 where $q_a$ is the proportion of positive labels in the favored facet $a$, and $q_d$ is the proportion of positive labels in the disfavored facet $d$:
-$$q_a = \frac{n_{a}^{+}}{n_a} \quad \text{and} \quad q_d = \frac{n_{d}^{+}}{n_d}$$
+$$
+q_a = \frac{n_{a}^{+}}{n_a} \quad \text{and} \quad q_d = \frac{n_{d}^{+}}{n_d}
+$$
 where $n_{a}^{+}$ and $n_{d}^{+}$ are the number of rows in each facet that received a positive target classification.
 *   *Interpretation:* A high DPL (e.g., $DPL = 0.40$) indicates a structural outcome disparity between the groups, showing that the favored group receives positive labels at a much higher rate.
 
 ### C. Conditional Demographic Disparity (CDD)
 CDD controls for confounding variables to prevent misleading conclusions caused by **Simpson's Paradox** (where an apparent bias disappears or reverses when the data is split into subgroups).
 Let the dataset be partitioned into $k$ distinct, homogeneous subgroups (e.g., splitting applicants by job type). CDD calculates disparity within each subgroup $i$ and averages them:
-$$CDD = \sum_{i=1}^k \frac{N_i}{N} \left( d_a^i - d_d^i \right)$$
+$$
+CDD = \sum_{i=1}^k \frac{N_i}{N} \left( d_a^i - d_d^i \right)
+$$
 where $N_i$ is the number of rows in subgroup $i$, $N$ is the total dataset size, and $d_a^i$ and $d_d^i$ represent the demographic disparities within that specific subgroup.
 *   *Interpretation:* CDD ensures you are comparing similar profiles (e.g., comparing junior developers against junior developers) rather than drawing false conclusions from aggregated data.
 
@@ -76,7 +84,9 @@ Input Features ---> [Black-Box ML Model] ---> Prediction (e.g., Loan Denied)
 SHAP is a game-theoretic framework that distributes the predictive "payoff" among the input features. It calculates the marginal contribution of each feature across all possible feature combinations.
 
 *This is a bit of a headache, but here is the trick:* To compute the exact contribution of feature $i$, the SHAP algorithm evaluates the model's output across every possible subset (sub-coalition) of features. It computes the change in prediction when feature $i$ is added to a subset versus when it is omitted, weighting and averaging these values across all combinations:
-$$\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N| - |S| - 1)!}{|N|!} \left( v(S \cup \{i\}) - v(S) \right)$$
+$$
+\phi_i(v) = \sum_{S \subseteq N \setminus \{i\}} \frac{|S|!(|N| - |S| - 1)!}{|N|!} \left( v(S \cup \{i\}) - v(S) \right)
+$$
 where $N$ is the complete set of features, $S$ is a subset of features excluding feature $i$, and $v(S)$ represents the model's prediction using only features in $S$.
 *   *SHAP Example:* A bank's model denies a credit application. SageMaker Clarify runs a SHAP analysis and outputs Shapley values: `Debt-to-Income Ratio = +0.35`, `Missed Payments = +0.20`, and `Annual Income = -0.15`. The bank can explain to the auditor that the high debt-to-income ratio was the primary feature that pushed the model's prediction past the denial threshold.
 

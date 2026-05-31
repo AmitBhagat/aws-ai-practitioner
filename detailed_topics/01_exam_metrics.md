@@ -24,7 +24,9 @@ To make sure the exam is fair, AWS uses a statistical framework called **Item Re
 
 ### Item Response Theory (IRT)
 IRT is a statistical method that calculates how likely a candidate of a certain ability level is to answer a specific question correctly. Under the hood, AWS uses a three-parameter logistic (3PL) formula to evaluate each question:
-$$P_i(\theta) = c_i + \frac{1 - c_i}{1 + e^{-a_i(\theta - b_i)}}$$
+$$
+P_i(\theta) = c_i + \frac{1 - c_i}{1 + e^{-a_i(\theta - b_i)}}
+$$
 
 > [!NOTE]
 > **Jargon Buster:**

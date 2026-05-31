@@ -73,7 +73,7 @@ Now we can run downstream NLP tasks:
 *   **Targeted Sentiment:** Finding the sentiment toward specific features.
     *   *Targeted Sentiment Example:* In the phrase "The screen is beautiful but the battery is bad," the model records positive sentiment for the entity "screen" and negative sentiment for the entity "battery."
 *   **Information Retrieval & Extraction:** Querying a large text corpus and extracting key facts, structured data, or relationships.
-    *   *Information Retrieval & Extraction Example:* Processing 5,000 PDF lease agreements to build a structured database containing fields like `{"landlord": "John Doe", "rent": "$2,500/month", "lease_start": "2026-06-01"}`.
+    *   *Information Retrieval & Extraction Example:* Processing 5,000 PDF lease agreements to build a structured database containing fields like `{"landlord": "John Doe", "rent": "\$2,500/month", "lease_start": "2026-06-01"}`.
     > [!WARNING]
     > **Extraction Gotcha:** Structural layout noise. If documents contain complex tables, multi-column layouts, or poor-quality OCR, text extraction pipelines can read blocks in the wrong logical order, resulting in garbled or completely missed key facts.
 *   **Topic Modeling:** Grouping large collections of documents into topics based on how often words appear together.
@@ -82,10 +82,14 @@ Now we can run downstream NLP tasks:
 ### Phase 4: Vector Embeddings & Vector Space
 The ultimate goal of the preprocessing and syntactic analysis is often to convert unstructured text into numbers that a neural network can actually compute. This is where vector embeddings and vector spaces come in:
 *   **Vector:** A mathematical representation of length and direction, represented as a one-dimensional array of numbers:
-    $$\vec{v} = [v_1, v_2, \dots, v_d]^T \in \mathbb{R}^d$$
+    $$
+    \vec{v} = [v_1, v_2, \dots, v_d]^T \in \mathbb{R}^d
+    $$
 *   **Embeddings:** High-dimensional vector representations of text where semantic meanings are mapped into a continuous, multi-dimensional **Vector Space**. Words or phrases with similar semantic meaning will have vectors that are clustered closer together in this space.
 *   **Closeness Metrics (Cosine Similarity):** To measure semantic similarity between two text snippets, models compute the cosine of the angle between their respective vectors. A cosine similarity of $1$ means the vectors point in the exact same direction (highest similarity), whereas $0$ indicates orthogonality (no similarity):
-    $$\text{Cosine Similarity}(\vec{u}, \vec{v}) = \frac{\vec{u} \cdot \vec{v}}{\|\vec{u}\| \|\vec{v}\|} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}$$
+    $$
+    \text{Cosine Similarity}(\vec{u}, \vec{v}) = \frac{\vec{u} \cdot \vec{v}}{\|\vec{u}\| \|\vec{v}\|} = \frac{\sum_{i=1}^d u_i v_i}{\sqrt{\sum_{i=1}^d u_i^2} \sqrt{\sum_{i=1}^d v_i^2}}
+    $$
 *   **External Memory & Multi-Modal Alignment:** Embeddings can act as "external memory" for ML models, representing concepts in a model-agnostic mathematical space. They can be shared across models to enable multi-modal coordination (e.g., mapping a text embedding of `"dog"` to a vision model's image embedding of a dog in the same vector space).
     *   *Vector Embeddings Example:* Mapping the words `"king"` and `"queen"` to vectors in a $768$-dimensional space. Because they represent related concepts of royalty, their cosine similarity is high (e.g., $0.85$). In contrast, the similarity between `"king"` and `"banana"` would be close to $0$ (e.g., $0.05$).
     > [!WARNING]
@@ -106,7 +110,7 @@ AWS offers serverless APIs that let you run NLP, speech, text extraction, and co
 
 *   **Amazon Kendra:** An enterprise search engine that uses ML and semantic query understanding to retrieve answers from unstructured documents.
     *   *Connectors:* Automatically index folders and metadata in Amazon S3, Salesforce, SharePoint, ServiceNow, Confluence, and relational databases.
-    *   *Cost Trap:* Default API deployments provision the **Enterprise Edition ($1.40/hour)**. Make sure to select the Developer Edition for development environments to save money.
+    *   *Cost Trap:* Default API deployments provision the **Enterprise Edition (\$1.40/hour)**. Make sure to select the Developer Edition for development environments to save money.
     *   *Kendra Search Example:* An employee typing the question `"What is the standard maternity leave duration?"` in the company portal. Kendra searches indexed PDF policy manuals in S3 and returns the exact paragraph detailing the 12-week policy duration, rather than returning a list of links matching keyword strings.
 
 *   **Amazon Translate:** Real-time and batch neural machine translation service.

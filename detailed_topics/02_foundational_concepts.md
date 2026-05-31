@@ -24,9 +24,13 @@ graph TD
     *   *Narrow AI Example:* An email spam filter or a chess-playing computer program. These systems are highly effective at their specific task but cannot write a poem, compile code, or drive a car.
     *   *General AI (AGI) Example:* A hypothetical, science-fiction assistant including Jarvis from Iron Man or HAL 9000, which possesses humanlike reasoning, adaptable planning, and general intelligence across all domains.
 *   **Machine Learning (ML):** This doll sits inside AI. Instead of writing rigid, hard-coded rules using conditional if/else statements, we feed training datasets into statistical models. The model learns how to map inputs, known as features ($X$), to outputs, known as labels ($Y$), by adjusting its internal weights ($w$):
-    $$f(X; w) \approx Y$$
+    $$
+    f(X; w) \approx Y
+    $$
     Under the hood, we optimize these weights using a mathematical framework called **Empirical Risk Minimization (ERM)**:
-    $$\min_{w} \frac{1}{N} \sum_{i=1}^N L(f(x_i; w), y_i)$$
+    $$
+    \min_{w} \frac{1}{N} \sum_{i=1}^N L(f(x_i; w), y_i)
+    $$
     where $N$ represents the number of training samples, $L$ is a loss function measuring the error between the model's prediction and the ground truth, and $w$ represents the parameter weights.
     *   *ML Parameter Optimization Example:* Imagine predicting house prices. Your features ($X$) are the size in square feet and the number of bedrooms. The label ($Y$) is the actual sale price. The weight ($w$) is the multiplier for each square foot. During training, the optimization algorithm adjusts this weight to make predictions as close as possible to the actual sale prices in your historical dataset, minimizing the loss function.
     > [!NOTE]
@@ -92,8 +96,8 @@ Deep learning requires massive computing power. Here is how to select the right 
         *   *ml.p4de Example:* Training a multi-modal foundation model on billions of web documents and images across a cluster of instances for several weeks.
 
 > [!WARNING]
-> **SageMaker Canvas Cost Trap:** SageMaker Canvas charges a flat fee of **$1.90 per hour** to keep your visual workspace running by provisioning an active compute instance in the background. Simply closing your browser tab does not turn off the instance. You must explicitly click the log out button located in the bottom-left corner of the interface to terminate the instance and stop the billing.
-> *   *Canvas Cost Trap Example:* An analyst opens SageMaker Canvas, uploads a dataset, and builds a prediction model. At 5:00 PM, they close their browser tab, assuming the session ends. Because they did not click the log out button, the background compute instance runs all weekend for 64 hours, generating an unexpected charge of $121.60 on the company's AWS invoice.
+> **SageMaker Canvas Cost Trap:** SageMaker Canvas charges a flat fee of **\$1.90 per hour** to keep your visual workspace running by provisioning an active compute instance in the background. Simply closing your browser tab does not turn off the instance. You must explicitly click the log out button located in the bottom-left corner of the interface to terminate the instance and stop the billing.
+> *   *Canvas Cost Trap Example:* An analyst opens SageMaker Canvas, uploads a dataset, and builds a prediction model. At 5:00 PM, they close their browser tab, assuming the session ends. Because they did not click the log out button, the background compute instance runs all weekend for 64 hours, generating an unexpected charge of \$121.60 on the company's AWS invoice.
 
 ---
 

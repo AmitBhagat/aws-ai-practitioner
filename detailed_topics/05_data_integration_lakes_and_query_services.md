@@ -131,9 +131,11 @@ To keep query costs low, you need to store data efficiently:
 
 *   **Columnar Storage:** Store files in columnar formats, including Apache Parquet or Apache ORC, instead of row-based formats like CSV or JSON. Columnar formats allow Athena to scan only the columns queried, reducing data scanned.
 *   **Data Partitioning:** Organize S3 folders using hive-style paths (for example, `year=2026/month=05/day=31/`). This limits Athena to scanning only folders matching query filters, avoiding full bucket scans.
-*   **Athena Pricing:** Athena charges exactly $\$5.00$ per Terabyte of data scanned. If the volume of data scanned is $V$ Terabytes, the cost $C$ is computed as:
-    $$C = V \times \$5.00$$
-    *   *Cost Optimization Example:* A raw log dataset is $10$ Terabytes of CSV files. A query searching for error logs scans all $10$ TB, costing $\$50.00$. The developer converts the files to Apache Parquet and partitions them by date. The same query now only scans the Parquet columns for a single day, scanning only $5$ Gigabytes, which costs exactly $\$0.000025$.
+*   **Athena Pricing:** Athena charges exactly \\$5.00 per Terabyte of data scanned. If the volume of data scanned is $V$ Terabytes, the cost $C$ is computed as:
+    $$
+    C = V \times \$5.00
+    $$
+    *   *Cost Optimization Example:* A raw log dataset is $10$ Terabytes of CSV files. A query searching for error logs scans all $10$ TB, costing \\$50.00. The developer converts the files to Apache Parquet and partitions them by date. The same query now only scans the Parquet columns for a single day, scanning only $5$ Gigabytes, which costs exactly \\$0.000025.
 *   **Amazon Redshift:**
     *   *MPP Columnar Warehouse:* A massive parallel processing columnar database designed for complex enterprise-scale analytics.
     *   *Redshift Spectrum:* Allows users to write SQL queries directly against data stored in S3 without loading it into Redshift tables first.

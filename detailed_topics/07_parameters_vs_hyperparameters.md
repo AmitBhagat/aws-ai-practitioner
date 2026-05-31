@@ -15,7 +15,7 @@ Think of parameters like the air-to-fuel ratio or valve timing in a car's engine
 *   **Biases ($b$):** Additive offsets that shift the activation functions' thresholds. They represent the baseline probability or assumption of a feature activating, independent of the input features.
     *   *Biases Example:* If a model is classifying images, and $90\%$ of the training images are outdoor landscapes, the bias parameter for the "sky detector" node is adjusted upward (for example, $+1.5$) during training so that it activates even with faint light inputs, reflecting the high baseline probability of sky features.
 *   **Regression Coefficients ($\beta_i$):** The slope weights assigned to features in linear and logistic regression models.
-    *   *Regression Coefficient Example:* In predicting house prices, the model estimates a coefficient $\beta_1 = 250$ for the feature $X_1$ (square footage), meaning each additional square foot adds $\$250$ to the predicted price.
+    *   *Regression Coefficient Example:* In predicting house prices, the model estimates a coefficient $\beta_1 = 250$ for the feature $X_1$ (square footage), meaning each additional square foot adds \\$250 to the predicted price.
 *   **Cluster Centroids ($C_k$):** The coordinates of cluster centers computed dynamically during K-Means training.
     *   *Cluster Centroid Example:* In a customer segmentation task, K-Means calculates the mean coordinates of $3$ spending profiles in a multi-dimensional feature space, shifting centroids iteratively until they represent the true average centers of customer clusters.
 

@@ -9,9 +9,9 @@ Securing machine learning applications is critical. AWS organizes security bound
 The Shared Responsibility Model for Machine Learning defines who manages the infrastructure (networking, hardware, and OS) and who manages the software (libraries, training scripts, and datasets). AWS categorizes these boundaries across five operational scopes.
 
 Let $S \in \{1, 2, 3, 4, 5\}$ represent the scope level in the Shared Responsibility Model. The level of customer responsibility, denoted as $R(S)$, decreases as the scope level increases, which can be represented formally as:
-$$
+```math
 R(S) \propto \frac{1}{S}
-$$
+```
 
 *   **Scope 1 (Infrastructure-Managed - Amazon EC2):** Think of this like buying raw land. You are responsible for building the house, securing the doors, installing an alarm system, and patching the roof.
     *   *Customer Responsibility:* You manage the operating system, GPU drivers, PyTorch or TensorFlow libraries, training scripts, and API endpoints.

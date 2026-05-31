@@ -31,9 +31,9 @@ To make sure the exam is fair, AWS uses a statistical framework called **Item Re
 
 ### Item Response Theory (IRT)
 IRT is a statistical method that calculates how likely a candidate of a certain ability level is to answer a specific question correctly. Under the hood, AWS uses a three-parameter logistic (3PL) formula to evaluate each question:
-$$
+```math
 P_i(\theta) = c_i + \frac{1 - c_i}{1 + e^{-a_i(\theta - b_i)}}
-$$
+```
 
 > [!NOTE]
 > **Jargon Buster:**
@@ -104,13 +104,13 @@ graph TD
 
 *   **Artificial Intelligence (AI):** This is the largest, outermost doll. It represents any computer system designed to mimic human behavior, including making decisions or solving problems.
 *   **Machine Learning (ML):** This doll sits inside AI. Instead of writing rigid, hard-coded rules, we feed data into statistical models. The model learns how to map features ($X$) to labels ($Y$) by adjusting its weights ($w$):
-    $$
+    ```math
     f(X; w) \approx Y
-    $$
+    ```
     Under the hood, we optimize these weights using a framework called **Empirical Risk Minimization (ERM)**:
-    $$
+    ```math
     \min_{w} \frac{1}{N} \sum_{i=1}^N L(f(x_i; w), y_i)
-    $$
+    ```
 
 > [!NOTE]
 > **Jargon Buster:** **Empirical Risk Minimization** is just a fancy way of saying "make the model as accurate as possible by minimizing its mistakes on the training data."
@@ -271,9 +271,9 @@ graph TD
 *   **Supervised Feedback Loop:** The model uses features ($X$) to predict a target ($\hat{Y}$). The **Loss Function** measures the error between the prediction and the ground truth. An **Optimizer** calculates gradients and updates parameters to minimize that loss.
 *   **Unsupervised Clustering Loop:** Algorithms, including K-Means, place cluster centers (centroids) in vector space. They assign data points to the closest centroid based on distance, and then recalculate the centroid positions. They repeat this loop until the centroids stop moving.
 *   **Reinforcement Learning Loop:** The **Agent** looks at the current **State** ($s_t$) of the **Environment**. It chooses an **Action** ($a_t$) based on its **Policy** ($\pi$). The environment returns a **Reward** ($r_{t+1}$) and transitions to the next state ($s_{t+1}$). The goal is to maximize the expected discounted return over time:
-    $$
+    ```math
     G_t = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
-    $$
+    ```
 
 > [!NOTE]
 > **Jargon Buster:** **Discount Factor ($\gamma$)** is a value between $0$ and $1$ that determines how much the model values immediate rewards versus long-term rewards. If it is close to $0$, the model is short-sighted; if it is close to $1$, it cares about long-term payoffs.
@@ -313,19 +313,19 @@ Traditional machine learning algorithms are the workhorses of data science. Befo
 Think of regression like drawing a trendline on a scatter plot of data. The goal is to find a line or curve that sits as close as possible to all your data points:
 
 *   **Simple Linear Regression:** Fits a straight line to minimize the sum of squared errors between predictions and actual values:
-    $$
+    ```math
     Y = \beta_0 + \beta_1 X + \epsilon
-    $$
+    ```
     where $\beta_0$ represents the intercept, $\beta_1$ is the slope coefficient, and $\epsilon$ represents the random error. The model uses Ordinary Least Squares (OLS) to find the best line.
 *   **Multiple Linear Regression:** Extends the trendline to handle multiple features:
-    $$
+    ```math
     Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_n X_n + \epsilon
-    $$
+    ```
     Instead of a flat line, it calculates a multi-dimensional hyperplane of best fit.
 *   **Polynomial Regression:** Models curved relationships by adding exponential terms of your features:
-    $$
+    ```math
     Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \dots + \beta_k X^k + \epsilon
-    $$
+    ```
     This allows a linear model to capture curves, including acceleration trends.
 *   **Support Vector Regression (SVR):** Think of this like building a paved road of a certain width, known as the $\epsilon$-insensitive tube. SVR tries to fit as many data points as possible *inside* this road, and it only penalizes points that fall outside the boundaries.
 
@@ -335,18 +335,18 @@ Think of regression like drawing a trendline on a scatter plot of data. The goal
 Classification is the process of drawing walls or boundaries to separate data into categories:
 
 *   **Logistic Regression:** Think of this like a light switch with a dimmer. It maps real-valued inputs to a probability between $0$ and $1$ using the sigmoid function:
-    $$
+    ```math
     P(Y=1 \vert X) = \sigma(z) = \frac{1}{1 + e^{-z}}
-    $$
+    ```
     where $z = w^T x + b$. If the probability is above a threshold, including $0.5$, we assign the sample to the positive class.
 *   **K-Nearest Neighbors (KNN):** Think of this like asking your nearest neighbors for advice. To classify a point, KNN finds the $k$ closest samples in your training set and takes a majority vote. The distance is calculated using:
     *   *Euclidean Distance:* $d(x, y) = \sqrt{\sum (x_i - y_i)^2}$
     *   *Manhattan Distance:* $d(x, y) = \sum \vert x_i - y_i \vert$
     *   *Hamming Distance:* $d(x, y) = \sum \mathbb{I}(x_i \neq y_i)$, which counts the number of differences between categorical values.
 *   **Support Vector Machine (SVM):** Finds the widest street that separates two classes of data points. If the classes are mixed together, it uses the **kernel trick** to project the data into a higher dimension where they can be separated by a flat plane. A popular option is the Radial Basis Function (RBF) kernel:
-    $$
+    ```math
     K(x, y) = \exp(-\gamma \|x - y\|^2)
-    $$
+    ```
 
 > [!TIP]
 > **Kernel Analogy:** Imagine putting blue and red marbles on a table, all mixed up. You cannot draw a straight line to separate them. But if you hit the table from underneath so they bounce up into the air (a higher dimension), you could easily slide a sheet of paper (a hyperplane) between them.
@@ -357,9 +357,9 @@ Classification is the process of drawing walls or boundaries to separate data in
     *   *Information Gain:* $IG(S, A) = H(S) - \sum \frac{|S_v|}{|S|} H(S_v)$ (measures the reduction in randomness after a split).
 *   **Random Forest:** An ensemble method that trains a crowd of decision trees on random subsets of the data and features. It takes the average prediction of the trees to reduce variance.
 *   **Naive Bayes:** Calculates probability using Bayes' Theorem:
-    $$
+    ```math
     P(\text{Class} \vert \text{Features}) \propto P(\text{Class}) \prod P(\text{Feature}_i \vert \text{Class})
-    $$
+    ```
     It is called "naive" because it assumes all features are completely independent of each other.
 
 ---
@@ -406,9 +406,9 @@ Think of a neural network like a bucket brigade passing water to put out a fire.
 *   **Hidden Layers:** Pass the buckets along the line. Each person adjusts their grip strength (weights) and how quickly they pass the bucket (biases).
 *   **Output Layer:** Pours the water on the fire (makes the prediction).
 *   **Backpropagation:** If the water misses the fire, the chief calculates the error (loss) and yells instructions back down the line. Each person adjusts their parameters based on their contribution to the mistake:
-    $$
+    ```math
     w_{\text{new}} = w_{\text{old}} - \eta \frac{\partial L}{\partial w}
-    $$
+    ```
     where $\eta$ represents the **Learning Rate** (the step size taken to adjust parameters).
 
 ---
@@ -417,40 +417,40 @@ Think of a neural network like a bucket brigade passing water to put out a fire.
 Without activation functions, a neural network is just a giant linear regression model. Activation functions act as gatekeepers, introducing non-linear curves to help the network learn complex patterns.
 
 *   **Sigmoid Function:** Maps inputs to a range between $0$ and $1$:
-    $$
+    ```math
     f(x) = \frac{1}{1 + e^{-x}}
-    $$
+    ```
 
 > [!WARNING]
 > **Vanishing Gradient:** When inputs get very large or very small, the sigmoid output curve becomes flat, and the derivative (gradient) approaches zero. During training, the signals fade away, and the network stops learning.
 
 *   **Tanh Function:** Maps inputs to a range between $-1$ and $1$:
-    $$
+    ```math
     f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
-    $$
+    ```
     It is zero-centered, which makes training slightly faster than sigmoid, but it still suffers from vanishing gradients for extreme values.
 *   **ReLU (Rectified Linear Unit):** Maps inputs to a range between $0$ and $\infty$:
-    $$
+    ```math
     f(x) = \max(0, x)
-    $$
+    ```
 
 > [!CAUTION]
 > **Dying ReLU:** The derivative of ReLU is zero for any negative input. If a neuron gets a negative input during training, it outputs zero gradient. The neuron gets stuck in the "off" state and never updates its parameters again.
 
 *   **Leaky ReLU:** Fixes Dying ReLU by adding a small slope $\alpha$ to negative inputs:
-    $$
+    ```math
     f(x) = \max(\alpha x, x)
-    $$
+    ```
     where $\alpha$ is usually $0.01$, ensuring the gradient never drops to zero.
 *   **Swish Function:** A smooth, non-monotonic curve:
-    $$
+    ```math
     f(x) = x \cdot \sigma(\beta x)
-    $$
+    ```
     Because it is smooth and does not have a sharp corner at zero, it helps very deep networks converge faster.
 *   **Softmax Function:** Normalizes raw network outputs into a probability distribution:
-    $$
+    ```math
     f(x_i) = \frac{e^{x_i}}{\sum e^{x_j}}
-    $$
+    ```
     The outputs add up to exactly $1.0$, which is ideal for multi-class classification.
 
 ---
@@ -538,24 +538,24 @@ Modern LLMs are built on the Transformer architecture. Here is how text routes t
 
 1.  **Tokenization:** Converts raw text strings into numerical IDs, which are mapped to high-dimensional embedding vectors.
 2.  **Positional Encoding:** Adds order information to the vectors using sine and cosine waves:
-    $$
+    ```math
     PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
-    $$
-    $$
+    ```
+    ```math
     PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
-    $$
+    ```
     This ensures the model knows the difference between "dog bites man" and "man bites dog."
 3.  **Self-Attention:** Think of self-attention like being at a loud cocktail party. Your brain automatically focuses on the words that relate to the current conversation while ignoring other noise. The model uses Query ($Q$), Key ($K$), and Value ($V$) matrices to compute attention scores:
-    $$
+    ```math
     \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-    $$
+    ```
 4.  **Cross-Attention:** Routes information between the encoder and decoder, mapping output tokens back to the input prompt context.
 
 ### ⚠️ The Context Window Bottleneck
 Because self-attention compares every word in a prompt to every other word, the memory and processing costs scale quadratically:
-$$
+```math
 O(N^2)
-$$
+```
 where $N$ represents the sequence length. If you double your prompt length, the hardware requirements increase fourfold.
 
 ---

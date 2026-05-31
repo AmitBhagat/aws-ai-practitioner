@@ -49,9 +49,9 @@ CoT Prompt      ---> Input + "Think step-by-step" -> Reason A -> B -> C -> Corre
 
 *   **Chain-of-Thought (CoT):** By appending instructions like *"Think step-by-step and show your reasoning before the final answer"*, we force the model to output intermediate mathematical or logical steps.
     *   *Mathematical Intuition:* In autoregressive LLMs, the probability of generating the correct next token $T_i$ is conditioned on all previous tokens:
-        $$
+        ```math
         P(T_i \mid T_{i-1}, T_{i-2}, \dots, T_1)
-        $$
+        ```
         By writing out its intermediate reasoning steps, the model actively builds a logical context history. The final answer token is then conditioned on this correct logical history, raising prediction accuracy.
     *   *CoT Example:*
         ```text
@@ -66,9 +66,9 @@ CoT Prompt      ---> Input + "Think step-by-step" -> Reason A -> B -> C -> Corre
         Answer: 14
         ```
 *   **Self-Consistency:** An advanced extension of CoT. Instead of running a single deterministic inference run, we set the model's Temperature hyperparameter high (e.g., $0.7$) to generate a variety of diverse reasoning paths. We sample $M$ independent reasoning paths, extract the final numerical or categorical answer from each path, and select the final answer using a majority vote:
-    $$
+    ```math
     \text{Final Answer} = \operatorname{arg\,max}_{A} \sum_{i=1}^M \mathbb{I}(A_i = A)
-    $$
+    ```
     where $\mathbb{I}$ is the indicator function evaluating to $1$ if the path's answer $A_i$ matches candidate answer $A$, and $0$ otherwise.
     *   *Self-Consistency Example:* Generating 5 different Chain-of-Thought runs for a math puzzle. Run 1 yields `14`, Run 2 yields `12`, Run 3 yields `14`, Run 4 yields `14`, and Run 5 yields `14`. The self-consistency algorithm registers a $4/5$ majority vote for `14`, successfully filtering out the reasoning error in Run 2.
 
@@ -143,14 +143,14 @@ When deploying models in production, you must isolate the instructions written b
 When designing prompts, you must optimize for both token limits and sequence cost:
 
 *   **Context Window Allocation:** Foundation models have fixed context windows (e.g., $200,000$ tokens for Claude 3). The context window is shared:
-    $$
+    ```math
     \text{Context Size} = N_{\text{input}} + N_{\text{output}}
-    $$
+    ```
     If you bloat your input prompt with redundant context documents ($N_{\text{input}}$), you limit the remaining tokens available for generating the output response ($N_{\text{output}}$).
 *   **The Attention Quadratic Complexity Gotcha:** The Transformer's self-attention mechanism computes similarity matrices across every single token in the input. The computational complexity and memory usage scale quadratically:
-    $$
+    ```math
     \mathcal{O}(N^2)
-    $$
+    ```
     where $N = N_{\text{input}} + N_{\text{output}}$. Bloating your prompt with irrelevant filler words or massive, unpruned documents directly increases inference latency, endpoint execution timeouts, and billing costs.
 *   **Prompt Pruning Strategies:**
     *   Strip out HTML formatting, conversational boilerplate, and redundant stop words from your retrieval contexts before injecting them into the prompt.

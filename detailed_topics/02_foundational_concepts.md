@@ -24,13 +24,13 @@ graph TD
     *   *Narrow AI Example:* An email spam filter or a chess-playing computer program. These systems are highly effective at their specific task but cannot write a poem, compile code, or drive a car.
     *   *General AI (AGI) Example:* A hypothetical, science-fiction assistant including Jarvis from Iron Man or HAL 9000, which possesses humanlike reasoning, adaptable planning, and general intelligence across all domains.
 *   **Machine Learning (ML):** This doll sits inside AI. Instead of writing rigid, hard-coded rules using conditional if/else statements, we feed training datasets into statistical models. The model learns how to map inputs, known as features ($X$), to outputs, known as labels ($Y$), by adjusting its internal weights ($w$):
-    $$
+    ```math
     f(X; w) \approx Y
-    $$
+    ```
     Under the hood, we optimize these weights using a mathematical framework called **Empirical Risk Minimization (ERM)**:
-    $$
+    ```math
     \min_{w} \frac{1}{N} \sum_{i=1}^N L(f(x_i; w), y_i)
-    $$
+    ```
     where $N$ represents the number of training samples, $L$ is a loss function measuring the error between the model's prediction and the ground truth, and $w$ represents the parameter weights.
     *   *ML Parameter Optimization Example:* Imagine predicting house prices. Your features ($X$) are the size in square feet and the number of bedrooms. The label ($Y$) is the actual sale price. The weight ($w$) is the multiplier for each square foot. During training, the optimization algorithm adjusts this weight to make predictions as close as possible to the actual sale prices in your historical dataset, minimizing the loss function.
     > [!NOTE]

@@ -43,13 +43,13 @@ To secure your models, you can deploy **Amazon Bedrock Guardrails** to filter in
     *   *Grounding Threshold:* Compares generated outputs against source files to verify they are supported.
     *   *Relevance Threshold:* Verifies generated outputs are relevant to the user query.
     *   *Grounding Check Formula:* Let $G \in [0, 1]$ be the grounding score (representing the fraction of the generated text that is mathematically supported by the source document) and $\theta_G$ be the grounding threshold. The guardrail allows the output if and only if:
-        $$
+        ```math
         G \ge \theta_G
-        $$
+        ```
         Similarly, if $R \in [0, 1]$ is the relevance score of the output to the query, and $\theta_R$ is the relevance threshold, the response is allowed if:
-        $$
+        ```math
         R \ge \theta_R
-        $$
+        ```
     *   *Grounding Check Example:* A bot answers questions about company policy. A user asks `"What is the remote work policy?"` The model outputs a response claiming employees get unlimited vacation. The Contextual Grounding Check compares the response against the policy PDF, detects that "unlimited vacation" has a grounding score $G = 0.0$ (which is less than $\theta_G = 0.85$), and blocks the response, preventing a hallucination from reaching the user.
 
 ---

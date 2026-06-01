@@ -752,7 +752,6 @@ const CATEGORIES = ['All', 'ML Fundamentals', 'GenAI & LLMs', 'AWS Services', 'A
 export default function Glossary() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [activeLetter, setActiveLetter] = useState('All');
 
   // Filter and sort terms
   const filteredTerms = useMemo(() => {
@@ -765,23 +764,10 @@ export default function Glossary() {
         item.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.definition.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.examTakeaway.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      // Letter match
-      const firstLetter = item.term.charAt(0).toUpperCase();
-      const letterMatch = activeLetter === 'All' || firstLetter === activeLetter;
 
-      return categoryMatch && searchMatch && letterMatch;
+      return categoryMatch && searchMatch;
     }).sort((a, b) => a.term.localeCompare(b.term));
-  }, [searchTerm, selectedCategory, activeLetter]);
-
-  // Alphabet index list
-  const alphabet = useMemo(() => {
-    const letters = new Set();
-    GLOSSARY_TERMS.forEach(item => {
-      letters.add(item.term.charAt(0).toUpperCase());
-    });
-    return ['All', ...Array.from(letters).sort()];
-  }, []);
+  }, [searchTerm, selectedCategory]);
 
   return (
     <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
@@ -835,7 +821,7 @@ export default function Glossary() {
         </div>
 
         {/* Category Filter Tabs */}
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div>
           <div style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
             Filter by Category
           </div>
@@ -843,7 +829,7 @@ export default function Glossary() {
             {CATEGORIES.map(category => (
               <button
                 key={category}
-                onClick={() => { setSelectedCategory(category); setActiveLetter('All'); }}
+                onClick={() => setSelectedCategory(category)}
                 style={{
                   padding: '0.4rem 0.8rem',
                   borderRadius: '6px',
@@ -861,38 +847,6 @@ export default function Glossary() {
             ))}
           </div>
         </div>
-
-        {/* Alphabet Filter Index */}
-        <div>
-          <div style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.5rem', letterSpacing: '0.05em' }}>
-            A-Z Jump Index
-          </div>
-          <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
-            {alphabet.map(letter => (
-              <button
-                key={letter}
-                onClick={() => setActiveLetter(letter)}
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '6px',
-                  border: activeLetter === letter ? '1px solid var(--accent-violet)' : '1px solid var(--border-color)',
-                  background: activeLetter === letter ? 'var(--accent-violet-glow)' : 'transparent',
-                  color: activeLetter === letter ? 'var(--accent-violet)' : 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  fontSize: '0.8rem',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Results Count Banner */}
@@ -900,9 +854,9 @@ export default function Glossary() {
         <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
           Showing <strong style={{ color: 'var(--text-primary)' }}>{filteredTerms.length}</strong> terms matching filter parameters
         </span>
-        {(searchTerm || selectedCategory !== 'All' || activeLetter !== 'All') && (
+        {(searchTerm || selectedCategory !== 'All') && (
           <button
-            onClick={() => { setSearchTerm(''); setSelectedCategory('All'); setActiveLetter('All'); }}
+            onClick={() => { setSearchTerm(''); setSelectedCategory('All'); }}
             style={{
               background: 'transparent',
               border: 'none',

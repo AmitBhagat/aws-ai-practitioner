@@ -26,7 +26,7 @@ Predicted Neg        False Negative (FN)  True Negative (TN)
 > [!NOTE]
 > **The Harmonic Mean Trick:** This is a bit of a headache, but here is the trick: if you use a simple arithmetic average, a model with $100\%$ precision and $0\%$ recall gets a decent $50\%$ score. The harmonic mean penalizes extreme imbalances, dragging the F1 score down to $0$ if either metric is poor.
 >
-> **Real-World Analogy (Soccer Striker):** Think of Precision like a striker's shooting efficiency (how many of their shots on goal actually score) and Recall like their field coverage (how many of the team's total scoring opportunities they actually reached). You want a striker who takes high-quality shots (high precision) but also gets to most opportunities (high recall).
+> **Exam Scenario:** A medical organization is building a system to identify rare malignant tumors on MRI scans. To ensure they never send a sick patient home without treatment (a False Negative), they prioritize **Recall**. However, when designing an automated transaction warning system that flags fraud, they prioritize **Precision** to avoid blocking legitimate purchases (False Positives), optimizing the harmonic mean of both using the **F1-Score** for ultimate class-imbalanced reliability.
 
 > [!WARNING]
 > **Supervised Gotcha (Class Imbalance):** When classes are heavily skewed (e.g., fraud detection or rare disease diagnosis), accuracy is a useless metric. Always optimize for **F1-Score** or **AUC-ROC** (Area Under the Receiver Operating Characteristic Curve) to evaluate model performance on imbalanced distributions.
@@ -38,7 +38,7 @@ Predicted Neg        False Negative (FN)  True Negative (TN)
 Evaluating generative models is messy. Because an LLM can write the same answer in a thousand different ways, we need specialized metrics that handle text matching and semantic relationships.
 
 *   **BLEU (Bilingual Evaluation Understudy):** Used primarily for **Machine Translation**. It calculates the precision of $n$-gram overlaps between the model's generated text and one or more human-written reference translations.
-    *   *Analogy:* Think of it like grading a vocabulary test by counting how many exact words or word pairings from the answer key show up in the student's response.
+    *   **Exam Scenario:** A global localization company uses Amazon Translate to convert product descriptions from English to German. During automated evaluation, they use the **BLEU** metric to compute exact matching $n$-grams between the model's German translations and a professional linguist's reference logs, penalizing short, incomplete outputs with a brevity penalty.
     $$\text{BLEU} = \text{BP} \cdot \exp\left(\sum_{n=1}^N w_n \log p_n\right)$$
     where $p_n$ is the modified $n$-gram precision, $w_n$ represents weights, and $\text{BP}$ is a brevity penalty to prevent short, cheating sentences.
 > [!WARNING]
@@ -52,7 +52,7 @@ Evaluating generative models is messy. Because an LLM can write the same answer 
 
 *   **BERTScore:** The semantic solution. Instead of checking for exact word matches, BERTScore feeds both the generated sentence and reference sentence into a pre-trained Transformer (like BERT) to extract token embeddings. It then calculates the **Cosine Similarity** between the embedding vectors of each word:
     $$\text{Cosine Similarity} = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\| \|\mathbf{v}\|}$$
-    *   *Analogy:* Think of it like comparing two dishes by their chemical flavor profiles (semantics) rather than checking if they have the exact same list of ingredients (words).
+    *   **Exam Scenario:** A tech company is evaluating a customer service chatbot. When a user asks a question, the gold-standard reference answer states *"this action is highly recommended"*, but the chatbot responds *"you should definitely do this"*. Standard BLEU and ROUGE metrics would penalize this as a complete mismatch, but the engineering team uses **BERTScore** to calculate cosine similarity over token embeddings, capturing the identical semantic meaning.
 > [!TIP]
 > **Dialect/Slang Trick:** This is a bit of a headache, but here is the trick: if you are evaluating a chatbot designed for teenagers using creative spelling and slang, BLEU and ROUGE scores will tank. **BERTScore** is the only metric that can recognize that a slang term carries the same semantic meaning as a formal word.
 

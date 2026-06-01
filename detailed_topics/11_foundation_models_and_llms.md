@@ -6,8 +6,15 @@ Generative AI is changing how we build software. Under the hood, these capabilit
 
 ## 1. 🎓 Foundation Models vs. LLMs
 
-*   **Foundation Models (FMs):** Think of a foundation model like graduating from college with a broad, general education. You have basic skills in language, logic, and problem-solving. You can then go to a specialized graduate school (fine-tuning) to become a doctor or a lawyer.  <br /> 🔍 **Example:** Amazon Titan Multimodal, which is pre-trained on millions of image-text pairs. It can search images, describe scenes, or generate text, and it can be adapted to represent local business catalogs.
+*   **Foundation Models (FMs):** High-capacity neural networks pre-trained on massive, diverse datasets using self-supervised learning at scale. They possess general-purpose language, visual, and reasoning capabilities that can be subsequently adapted to specialized down-stream tasks.  <br /> 🔍 **Example:** Amazon Titan Multimodal, which is pre-trained on millions of image-text pairs. It can search images, describe scenes, or generate text, and it can be adapted to represent local business catalogs.
 *   **Large Language Models (LLMs):** A specific type of foundation model containing billions of parameters, pre-trained on text corpora to predict the next word (token) in a sequence.  <br /> 🔍 **Example:** Anthropic Claude 3 Sonnet on Amazon Bedrock. It processes prompts to generate emails, summarize contracts, or write code by predicting the most statistically likely next token.
+
+### 🖼️ Exam Scenario: Selecting and Customizing Amazon Bedrock Models
+An enterprise wants to deploy a generative AI solution using Amazon Bedrock to support multiple business units, directly reflecting Question 7, Question 19, and Question 43 in our practice quiz:
+*   **Choosing the Base Model:** Instead of training a model from scratch, which requires high capital expenditure and data collections, they leverage a pre-trained **Foundation Model** (Transfer Learning) on Bedrock to adapt to related tasks (Question 7).
+*   **Domain Alignment via RAG:** For their customer support desk, they require the model to answer queries about product manuals. To do this cost-effectively and prevent hallucinations, they upload the PDF manuals to an Amazon Bedrock Knowledge Base to inject text chunks into the prompt context (Question 47).
+*   **Style Customization via Fine-Tuning:** For their marketing team, they require a highly customized model that generates promotional copy in a strict brand voice. They choose to **Fine-Tune** an Amazon Bedrock base model by uploading a structured dataset of labeled prompt-completion pairs in JSONL format to S3 (Question 19).
+*   **Production Deployment:** Once the fine-tuning training job finishes, the team is required to purchase **Provisioned Throughput** (allocating Model Units) to serve inference queries on their customized model, since custom fine-tuned models cannot be invoked on a pay-as-you-go On-Demand basis (Question 43).
 
 ---
 

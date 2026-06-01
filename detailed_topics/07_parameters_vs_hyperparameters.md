@@ -1,6 +1,6 @@
 # 🎚️ Tuning Your Machine Learning Model: Parameters vs. Hyperparameters
 
-Tuning a machine learning model is like driving a high-performance sports car. You need to understand the difference between what the car handles automatically (parameters) and what you must configure yourself (hyperparameters).
+To optimize a machine learning model for production deployment, an engineer must distinguish between internal variables optimized automatically (parameters) and external configurations set manually (hyperparameters). This distinction dictates how models are stored, serialized, and tuned on Amazon SageMaker.
 
 ---
 
@@ -8,7 +8,7 @@ Tuning a machine learning model is like driving a high-performance sports car. Y
 
 **Parameters** are the internal configurations of the model that the training algorithm updates automatically by reading patterns in the training data. The engineer **does not manually set** these values.
 
-Think of parameters like the air-to-fuel ratio or valve timing in a car's engine. As you drive, the car's computer tunes these values to keep the engine running smoothly. In machine learning, parameters include:
+Parameters represent the internal mathematical representations of the learned patterns that the model derives directly from the training dataset. In machine learning, parameters include:
 
 *   **Weights ($W$):** Connection strengths between neurons in a neural network. They determine the relative influence that a specific input feature has on subsequent layers.  <br /> 🔍 **Example:** In a customer support sentiment classifier, if the token "outstanding" frequently appears in positive reviews, the weight parameter connecting the input for "outstanding" to the positive sentiment output node is adjusted to a high positive value (for example, $+3.2$) during training, making the model highly sensitive to this word.
 *   **Biases ($b$):** Additive offsets that shift the activation functions' thresholds. They represent the baseline probability or assumption of a feature activating, independent of the input features.  <br /> 🔍 **Example:** If a model is classifying images, and $90\%$ of the training images are outdoor landscapes, the bias parameter for the "sky detector" node is adjusted upward (for example, $+1.5$) during training so that it activates even with faint light inputs, reflecting the high baseline probability of sky features.
@@ -24,7 +24,7 @@ When running a training job on Amazon SageMaker, the training container runs you
 
 **Hyperparameters** are the external settings that the engineer must manually configure before training begins. They control the training process dynamics and model architectures.
 
-Think of hyperparameters like selecting the transmission gear, setting the speed limit, or choosing your route. In machine learning, these settings include:
+Hyperparameters are the external settings configured by the machine learning engineer prior to launching a training job. In machine learning, these settings include:
 
 *   **Learning Rate ($\eta$):** Controls the step size the optimizer takes when updating weights in response to training errors.
 > [!CAUTION]
@@ -45,9 +45,15 @@ Instead of manually tweaking settings, you can run **SageMaker Hyperparameter Tu
 
 1.  **Grid Search:** Evaluates every possible combination of specified values. It is thorough but slow and expensive.  <br /> 🔍 **Example:** Tuning learning rate (`[0.01, 0.1]`) and batch size (`[16, 32]`). Grid Search runs exactly $2 \times 2 = 4$ independent training jobs, checking every combination: (0.01, 16), (0.01, 32), (0.1, 16), and (0.1, 32).
 2.  **Random Search:** Randomly samples values within your ranges. It is much faster and often finds great configurations.  <br /> 🔍 **Example:** Tuning learning rate over `[0.001, 0.1]` and batch size over `[16, 128]`. Random Search randomly picks combinations (for example, Job 1 uses (0.043, 87), Job 2 uses (0.008, 22)), running a specified budget of jobs (for example, 10 jobs) to find the best configuration.
-3.  **Bayesian Optimization:** Fits a probabilistic model to past training runs, balancing exploration of new ranges and exploitation of known good settings to find the best configuration quickly.  <br /> 🔍 **Example:** Tuning learning rate. The optimizer runs Job 1 with a learning rate of $0.05$ and gets a validation accuracy of $75\%$. It runs Job 2 at $0.01$ and gets $82\%$.
+3.  **Bayesian Optimization:** Fits a probabilistic model to past training runs, balancing exploration of new ranges and exploitation of known good settings to find the best configuration quickly.
 > [!NOTE]
 > **Bayesian Optimization Trick:** This is a bit of a headache, but here is the trick: Bayesian optimization fits a surrogate probabilistic model (like a Gaussian Process) to predict how validation loss changes with hyperparameter tweaks. It balances exploration (testing unknown ranges) and exploitation (refining known good settings) to find the best configuration with the fewest runs.
+
+### 🖼️ Exam Scenario: SageMaker Tuning for Loan Default Risk
+A financial institution wants to deploy a credit default classification model using the built-in SageMaker XGBoost algorithm (directly aligning with Question 3, Question 11, and Question 45 in our practice quiz):
+*   **Parameters:** The splitting thresholds of the trees, internal leaf weights, and decision structures are the model **parameters**. These are learned automatically during training, saved in `SM_MODEL_DIR`, and packaged in `model.tar.gz` on S3.
+*   **Hyperparameters:** The maximum tree depth (`max_depth`), learning rate (`eta`), L1 regularization (`alpha`), and target training epochs are **hyperparameters** configured in the SageMaker Estimator via the `SM_HPS` environment variable.
+*   **Tuning Pipeline:** To mitigate overfitting and discover the optimal hyperparameter values, the team launches a **SageMaker Hyperparameter Tuning Job** using **Bayesian Optimization**. The tuning job balances exploration of different ranges of `max_depth` and `eta` with exploitation of high-performing combinations, completing the search with the fewest possible training runs to minimize billing costs.
 
 ---
 

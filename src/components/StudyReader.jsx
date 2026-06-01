@@ -395,7 +395,7 @@ export default function StudyReader({
         return <h4 key={index} style={{ marginTop: '1rem', color: 'var(--text-primary)', fontSize: '0.95rem' }}><FormattedText text={el.text} /></h4>;
       
       case 'paragraph':
-        return <p key={index} style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.85' }}><FormattedText text={el.text} /></p>;
+        return <p key={index} style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.85', textAlign: 'justify' }}><FormattedText text={el.text} /></p>;
       
       case 'list':
         const Tag = el.listType;
@@ -407,7 +407,7 @@ export default function StudyReader({
               const marginLeft = indent > 0 ? `${(indent / 2) * 1.0}rem` : '0';
               const listStyleType = indent > 0 ? (Tag === 'ul' ? 'circle' : 'lower-alpha') : (Tag === 'ul' ? 'disc' : 'decimal');
               return (
-                <li key={itemIdx} style={{ marginBottom: '0.75rem', fontSize: '1.05rem', lineHeight: '1.8', marginLeft, listStyleType }}>
+                <li key={itemIdx} style={{ marginBottom: '0.75rem', fontSize: '1.05rem', lineHeight: '1.8', marginLeft, listStyleType, textAlign: 'justify' }}>
                   <FormattedText text={text} />
                 </li>
               );
@@ -435,7 +435,7 @@ export default function StudyReader({
               <span>{icon}</span>
               <span>{el.calloutType}</span>
             </div>
-            <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', margin: '0.5rem 0 0 0', lineHeight: '1.7' }}>
+            <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', margin: '0.5rem 0 0 0', lineHeight: '1.7', textAlign: 'justify' }}>
               <FormattedText text={el.content} />
             </p>
           </div>
@@ -498,7 +498,7 @@ export default function StudyReader({
           </h3>
           <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-secondary)', fontSize: '1.05rem' }}>
             {module.gotchas.map((gt, idx) => (
-              <li key={idx} style={{ marginBottom: '0.75rem', lineHeight: '1.7' }}><FormattedText text={gt} /></li>
+              <li key={idx} style={{ marginBottom: '0.75rem', lineHeight: '1.7', textAlign: 'justify' }}><FormattedText text={gt} /></li>
             ))}
           </ul>
         </div>

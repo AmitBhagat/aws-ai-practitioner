@@ -7,12 +7,10 @@ Instead of asking you to memorize facts, this exam tests your hands-on judgment.
 ---
 
 ## 1. 🎯 How the Scoring System Works
-Think of the AIF-C01 scoring system like scoring in a gymnastics or diving competition. Judges do not just add up raw points. Instead, they adjust the final score based on how difficult the moves were. This is what AWS calls a **scaled scoring model**.
-
-AWS maps your raw score (the percentage of questions you got right) onto a standard scale that runs from **100 to 1000**. To pass the exam, you need to score at least **700**.
+AWS uses a **scaled scoring model** to determine your results. AWS maps your performance onto a standard scale that runs from **100 to 1000**. To pass the exam, you need to score at least **700**.
 
 > [!TIP]
-> **Real-World Analogy:** Imagine scoring a diving match. A simple dive done perfectly might get a lower score than a highly complex double-flip dive done with a slight splash. Similarly, AWS adjusts your score based on the statistical difficulty of the specific questions on your exam form.
+> **Exam Scenario:** A candidate who takes a highly difficult version of the AIF-C01 exam form might answer fewer raw questions correctly than a candidate taking an easier form, yet both can receive the same scaled score of $700$ and pass. AWS utilizes Item Response Theory (IRT) to mathematically calibrate results based on question difficulty ($b_i$), ensuring fair evaluation across all test administrations.
 
 *   **Raw Score vs. Scaled Score:** Your raw score is the percentage of questions you answered correctly, including getting $45$ out of $50$ questions right. A scaled score adjustments process recalculates this raw score. It takes into account the difficulty of the specific exam version you received. This ensures that a score of $700$ represents the same level of knowledge, whether your exam version was easy or hard.
 *   **Keeping Your Credential Active:** Once you pass, your certification is active for exactly **36 months** (3 years). To keep it active, you must recertify. You can do this by passing the updated version of the same exam, or by passing a higher-level exam, including the AWS Certified Machine Learning - Specialty or the Machine Learning Associate exam.

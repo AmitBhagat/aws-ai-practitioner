@@ -45,7 +45,7 @@ How do models actually process the world? Let us look at the difference between 
 *   **Emulation:** This would be physically replicating the biological wiring and chemical synaptic reactions of a human brain. Today's AI does not do this; it relies on matrix multiplication running on silicon chips.  <br /> 🔍 **Example:** Running a Nintendo Entertainment System (NES) emulator on a modern PC. The emulator replicates the actual hardware registers and clock cycles of the original Ricoh 2A03 processor.
 
 > [!TIP]
-> **Modality Analogy:** Think of modalities like the raw materials that enter a factory. Depending on whether you receive wood (text), steel (images), liquid (audio), or wire (molecules), you need a completely different processing machine. Similarly, neural networks use customized architectures tailored to the shape of the input data.
+> **Exam Scenario:** A retail company is building an advanced search application that allows customers to query product catalogs using both text descriptions and uploaded product photos. To enable cross-modal matching (e.g., querying with text to retrieve images), the AI team implements a **multi-modal embedding model** that maps both text and image inputs into a shared continuous vector space.
 
 Here is how different data types, or **modalities**, are processed by specific architectures:
 

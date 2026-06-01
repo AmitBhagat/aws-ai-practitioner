@@ -63,13 +63,13 @@ graph TD
 The statistical distribution of the input features ($X$) changes over time, but the underlying relationship between inputs and target labels ($P(Y \vert X)$) remains unchanged.
 *   **Mathematical notation:**
     $$P(X_{\text{production}}) \neq P(X_{\text{training}})$$
-*   **Analogy:** You train a real-estate pricing model on data from warm summer listings. When winter arrives, the input feature distribution shifts to colder temperatures (Data Drift), but a house's structural value relative to temperature remains logical.
+*   **Exam Scenario:** A retail company deploys a transaction model on SageMaker trained on historical retail store purchases. Over a holiday season, customer shopping habits shift heavily toward high volumes of online e-commerce transactions. The statistical distribution of the input features $P(X)$ changes (e.g. `is_online_transaction` increases from $15\%$ to $70\%$), but the underlying relationship predicting fraud risk given online status remains mathematically consistent (Data Drift, aligning with Question 20 and Question 45 in our practice quiz). SageMaker Model Monitor flags this feature distribution shift.
 
 #### 2. Concept Drift (Model Drift / Label Shift)
 The statistical properties of the target variable ($Y$) or the mapping relationship between inputs and outputs ($P(Y \vert X)$) change. The same inputs now lead to completely different outputs.
 *   **Mathematical notation:**
     $$P(Y \vert X_{\text{production}}) \neq P(Y \vert X_{\text{training}})$$
-*   **Analogy:** An economic crisis or sudden hyperinflation hits the housing market. A house with the exact same features ($X$) that was worth \\$300k during training is now worth \\$500k in production. The model's learned weights are now obsolete.
+*   **Exam Scenario:** A financial lender trains a credit card default prediction model. A sudden regulatory policy changes the legal definition of default, or an economic recession causes default rates to spike across all credit scores. The input features ($X$, e.g. credit score, debt ratio) remain identical, but the actual probability of default given those features $P(Y \vert X)$ shifts dramatically, making the model's historical mapping obsolete (Concept Drift, aligning with Question 17 and Question 45 in our practice quiz). SageMaker Model Monitor flags this relationship decay.
 
 ---
 

@@ -21,17 +21,18 @@ Before inspecting how neural networks process data, let us define the core struc
 *   **Loss Function:** An algorithm that calculates prediction error by comparing the network's outputs against the **Ground Truth**.
 *   **Ground Truth:** The verified, correct label representing the actual correct classification or target value for a training instance.
 
-### 🖼️ The Image Classifier Analogy
-Think of a neural network like an **Image Classifier** processing an uploaded photograph to identify what is in the picture:
-*   **Input Layer:** The raw RGB pixel values of the uploaded image.
-*   **Hidden Layers:** The early layers scan the pixels to identify basic lines and edges. The middle layers combine these lines to detect simple shapes, including circles or texture patterns. The deepest hidden layers combine these shapes to recognize complex objects, including ears, snouts, or tails. Each node weights the importance of the incoming shapes (weights) and applies activation thresholds (biases) before passing its signal to the next layer.
-*   **Output Layer:** The final classification probability scores, including showing a $95\%$ probability that the image is a dog and a $5\%$ probability that it is a cat.
-*   **Weights, Biases, and Node Connections Example:** Imagine designing an image classifier to identify dogs. The input nodes receive the RGB pixel values of the image. The weights ($W$) act as connection strengths (for example, the weight of a connection between a circle detector node and the "dog head" output node). The bias ($b$) determines how easily the neuron activates.
-*   **Backpropagation Example:** In training the dog image classifier, the model predicts that the image is a cat. The loss function calculates the error. Backpropagation uses the calculus chain rule to work backward, calculating the gradient for each weight. The weight update rule adjusts the weights by subtracting the gradient times the learning rate $\eta$:
+### 🖼️ Exam Scenario: Production Deep Learning Leaf Disease Classification
+An agricultural technology firm deploys a deep convolutional neural network to automatically classify plant diseases from high-resolution leaf photographs in a production environment (directly aligning with Question 4 and Question 36 in our practice quiz):
+*   **Input Layer:** Ingests raw multidimensional arrays representing the RGB pixel values of the uploaded photo.
+*   **Hidden Layers:** The initial layers apply mathematical filters to perform edge and texture detection. Intermediate hidden layers combine these primitives to detect shapes and lesion patterns. The deepest hidden layers (the network has three or more hidden layers, classifying it as **Deep Learning**) capture complex structural features representing specific pathological states.
+*   **Activation Thresholds & Weights:** Each node weights the strength of connection (Weights $W$) and adds an offset (Bias $b$) to shift the activation function threshold before passing inputs through non-linear activation layers (such as ReLU).
+*   **Output Layer:** Uses a Softmax activation function to normalize raw outputs into a probability distribution across classes (e.g., yielding a $94\%$ probability of leaf rust, $4\%$ probability of healthy tissue, and $2\%$ probability of leaf spot).
+*   **Inference Phase:** When a farmer uploads a new leaf photo to the production endpoint, the model performs **Inference** by executing forward propagation across the frozen weights to return the classification result.
+*   **Backpropagation & Loss Optimization:** During model training, the loss function evaluates the discrepancy between predictions and the **Ground Truth** labels. Backpropagation calculates the mathematical gradient of this loss using the calculus chain rule, adjusting network parameters backward:
 ```math
 w_{\text{new}} = w_{\text{old}} - \eta \frac{\partial L}{\partial w}
 ```
-    For example, adjusting the weight of the "whisker detector" node downwards since the target is a dog.
+    where $\eta$ represents the learning rate, updating connection weights (such as downscaling a feature connection that led to an incorrect plant disease classification).
 
 ---
 

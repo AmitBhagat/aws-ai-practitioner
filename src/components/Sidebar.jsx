@@ -193,20 +193,20 @@ export default function Sidebar({
         </div>
 
         {/* Global Navigation Shortcut Buttons */}
-        <div style={{ padding: '1rem 1.5rem', display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--border-color)' }}>
+        <div style={{ padding: '1rem 1.5rem', display: 'flex', gap: '0.4rem', borderBottom: '1px solid var(--border-color)' }}>
           <button 
             onClick={() => { setCurrentView('dashboard'); setIsSidebarOpen(false); }}
             className="sidebar-nav-btn"
             style={{
               flex: 1,
-              padding: '0.5rem',
+              padding: '0.5rem 0.2rem',
               borderRadius: '8px',
               border: currentView === 'dashboard' ? '1px solid var(--accent-cyan)' : '1px solid var(--border-color)',
               background: currentView === 'dashboard' ? 'var(--accent-cyan-glow)' : 'transparent',
               color: currentView === 'dashboard' ? 'var(--accent-cyan)' : 'var(--text-secondary)',
               cursor: 'pointer',
               fontWeight: 600,
-              fontSize: '0.75rem',
+              fontSize: '0.72rem',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -221,14 +221,14 @@ export default function Sidebar({
             className="sidebar-nav-btn"
             style={{
               flex: 1,
-              padding: '0.5rem',
+              padding: '0.5rem 0.2rem',
               borderRadius: '8px',
               border: currentView === 'quiz' ? '1px solid var(--accent-violet)' : '1px solid var(--border-color)',
               background: currentView === 'quiz' ? 'var(--accent-violet-glow)' : 'transparent',
               color: currentView === 'quiz' ? 'var(--accent-violet)' : 'var(--text-secondary)',
               cursor: 'pointer',
               fontWeight: 600,
-              fontSize: '0.75rem',
+              fontSize: '0.72rem',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -236,7 +236,29 @@ export default function Sidebar({
             }}
           >
             <span>📝</span>
-            <span>Practice Exam</span>
+            <span>Practice</span>
+          </button>
+          <button 
+            onClick={() => { setCurrentView('glossary'); setIsSidebarOpen(false); }}
+            className="sidebar-nav-btn"
+            style={{
+              flex: 1,
+              padding: '0.5rem 0.2rem',
+              borderRadius: '8px',
+              border: currentView === 'glossary' ? '1px solid var(--accent-emerald)' : '1px solid var(--border-color)',
+              background: currentView === 'glossary' ? 'var(--accent-emerald-glow)' : 'transparent',
+              color: currentView === 'glossary' ? 'var(--accent-emerald)' : 'var(--text-secondary)',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.72rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.2rem'
+            }}
+          >
+            <span>📖</span>
+            <span>Glossary</span>
           </button>
         </div>
 

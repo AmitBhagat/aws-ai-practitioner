@@ -22,7 +22,8 @@ const domainMapping = {
   '15_responsible_ai_and_explainability.md': 'Domain 4: Responsible AI & Model Explainability',
   '16_compliance_security_governance.md': 'Domain 5: Compliance & Security Scoping Matrix',
   '17_prompt_injection_and_mitigations.md': 'Domain 3 & 5: GenAI Threat Mitigations & Guardrails',
-  '18_governance_and_drift.md': 'Domain 5: AI Governance & Model Drift'
+  '18_governance_and_drift.md': 'Domain 5: AI Governance & Model Drift',
+  '19_analytics_security_financial_governance.md': 'Domain 3 & 5: Advanced Analytics & Security Governance'
 };
 
 function parseFile(fileName, id) {

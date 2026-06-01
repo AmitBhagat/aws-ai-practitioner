@@ -6,7 +6,13 @@ Pre-trained foundation models contain general world knowledge, but they are stat
 
 ## 1. The RAG Ingestion Pipeline: Chunking & Ingestion
 
-RAG acts as an automated open-book exam helper. Before a model can read a document, the document must be processed, indexed, and stored in a vector database.
+Retrieval-Augmented Generation (RAG) is an architectural pattern that dynamically injects authoritative, domain-specific background context directly into a foundation model's input prompt. Before a model can process these documents, they must undergo systematic ingestion, chunking, embedding generation, and vector database indexing.
+
+### 🖼️ Exam Scenario: Building a Secure Product Manual Chatbot
+An e-commerce firm wants to build an automated customer support chatbot that answers queries about highly complex product manuals stored as PDF files in an Amazon S3 bucket (directly reflecting Question 21, Question 23, and Question 47 in our practice quiz):
+*   **Data Ingestion & Chunking:** They configure an **Amazon Bedrock Knowledge Base** to sync their S3 bucket. The service splits the large PDFs into smaller text blocks (chunks) using fixed-size chunking with a 15% sliding window overlap to prevent context boundaries from clipping critical information (Question 47).
+*   **Vector Indexing:** The chunks are passed through **Amazon Titan Text Embeddings** to generate 1536-dimensional semantic vectors. These vectors are indexed into **Amazon OpenSearch Serverless** utilizing its k-NN (k-nearest neighbors) search capacity (Question 21).
+*   **Context Window Constraints:** When a customer submits a query, it is vectorized to retrieve the top 3 closest chunks. These chunks are appended to the user prompt. The team designs prompt constraints to ensure the total input size fits within the model's **Context Window** limit, preventing truncated outputs or execution failures (Question 23).
 
 ```mermaid
 flowchart TD

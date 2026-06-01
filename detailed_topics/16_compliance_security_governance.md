@@ -13,20 +13,20 @@ Let $S \in \{1, 2, 3, 4, 5\}$ represent the scope level in the Shared Responsibi
 R(S) \propto \frac{1}{S}
 ```
 
-*   **Scope 1 (Infrastructure-Managed - Amazon EC2):** Think of this like buying raw land. You are responsible for building the house, securing the doors, installing an alarm system, and patching the roof.
-    *   *Customer Responsibility:* You manage the operating system, GPU drivers, PyTorch or TensorFlow libraries, training scripts, and API endpoints.
+*   **Scope 1 (Infrastructure-Managed - Amazon EC2):** In this scope, the customer has maximum ownership and responsibility over the entire computational stack.
+    *   *Customer Responsibility:* You manage the operating system patching, NVIDIA GPU/CUDA drivers, deep learning library compilations (e.g., PyTorch, TensorFlow), training scripts, and API security policies.
     *   *AWS Responsibility:* AWS manages physical security of the data center, virtualization layers, and server hardware.  <br /> 🔍 **Example:** A developer deploys custom neural network models on Amazon EC2 `g5.xlarge` instances. The developer must manually run Linux OS updates, install NVIDIA CUDA drivers, compile Docker containers, and handle api security policies.
-*   **Scope 2 (Platform-Managed - Amazon SageMaker):** Think of this like renting a house. The landlord (AWS) handles the building structure, plumbing, and roof.
-    *   *Customer Responsibility:* You manage your Python scripts, model hyperparameters, dataset structures, and notebook directory access permissions.
+*   **Scope 2 (Platform-Managed - Amazon SageMaker):** AWS abstracts away the OS-level drivers, presenting a managed ML platform environment.
+    *   *Customer Responsibility:* You manage your custom Python training scripts, model hyperparameters, dataset structures, and notebook directory access permissions.
     *   *AWS Responsibility:* AWS manages the host operating system, Docker base container images, and the platform clustering infrastructure.  <br /> 🔍 **Example:** An engineer spins up a SageMaker Notebook instance. AWS provides the pre-patched Jupyter environment and operating system. The engineer is responsible for writing the custom training script and configuring IAM policies to restrict notebook access.
-*   **Scope 3 (Built-In Algorithms - SageMaker Built-in):** Think of this like renting a fully furnished apartment.
-    *   *Customer Responsibility:* You manage hyperparameter settings and target datasets.
-    *   *AWS Responsibility:* AWS manages the training algorithm code, container execution, and underlying host scaling.  <br /> 🔍 **Example:** An analyst runs a classification training job using the built-in SageMaker XGBoost algorithm. AWS manages the container code and training logic. The analyst only points the job to their S3 dataset and sets hyperparameters, including `max_depth` and `learning_rate`.
-*   **Scope 4 (Managed AI - Amazon Rekognition / Comprehend):** Think of this like booking a hotel room. You just bring your personal bags.
+*   **Scope 3 (Built-In Algorithms - SageMaker Built-in):** AWS manages both the platform environment and the algorithm code itself.
+    *   *Customer Responsibility:* You manage specifying dataset paths and setting model-level hyperparameters (e.g. `max_depth` and `learning_rate`).
+    *   *AWS Responsibility:* AWS manages the containerized training algorithm code, execution runtimes, and the underlying host scaling.  <br /> 🔍 **Example:** An analyst runs a classification training job using the built-in SageMaker XGBoost algorithm. AWS manages the container code and training logic. The analyst only points the job to their S3 dataset and sets hyperparameters, including `max_depth` and `learning_rate`.
+*   **Scope 4 (Managed AI - Amazon Rekognition / Comprehend):** AWS manages the entire model lifecycle and serves predictions serverlessly via API endpoints.
     *   *Customer Responsibility:* You manage configuring IAM API key access policies and securing the raw data payload sent to the service.
     *   *AWS Responsibility:* AWS manages the pre-trained model weights, host operating systems, scaling engines, and API endpoints.  <br /> 🔍 **Example:** An application sends image files to the Amazon Rekognition `DetectLabels` API. AWS is responsible for maintaining the vision model and scaling the API. The developer is responsible for restricting which IAM users can execute the API call.
-*   **Scope 5 (SaaS-Like - Amazon Bedrock):** Think of this like staying in a luxury suite.
-    *   *Customer Responsibility:* You manage user prompts, fine-tuning datasets, Guardrails, and KMS encryption keys.
+*   **Scope 5 (SaaS-Like - Amazon Bedrock):** A fully managed serverless foundation model API where model weights are abstracted.
+    *   *Customer Responsibility:* You manage user prompt designs, fine-tuning datasets, Guardrails, and customer-managed KMS encryption keys.
     *   *AWS Responsibility:* AWS manages foundation model weights, isolated GPU clusters, and model hosting.  <br /> 🔍 **Example:** A developer calls Claude 3 via Amazon Bedrock serverless APIs. AWS handles the execution environment and base weights. The developer is responsible for protecting fine-tuning datasets in S3 and configuring safety filters.
 
 > [!WARNING]

@@ -50,7 +50,7 @@ d(x, y) = \left( \sum_{i=1}^n |x_i - y_i|^p \right)^{1/p}
 K(x, y) = \exp(-\gamma \|x - y\|^2)
 ```  <br /> 🔍 **Example:** Classifying emails as Spam or Ham. The SVM draws a boundary line that maximizes the margin (separation distance) between the closest spam and safe emails (the support vectors). If spam and safe emails are mixed together in $2\text{D}$ space, the RBF kernel projects the data into a higher-dimensional space where a flat sheet of paper (hyperplane) can cleanly partition them.
 > [!TIP]
-> **Kernel Analogy:** Imagine putting blue and red marbles on a table, all mixed up. You cannot draw a straight line to separate them. But if you hit the table from underneath so they bounce up into the air (a higher dimension), you could easily slide a sheet of paper (a hyperplane) between them.
+> **Exam Scenario:** A cybersecurity company wants to build a binary classification model using a **Support Vector Machine (SVM)** to separate benign network logs from malicious traffic. Because the raw features are highly non-linear and mixed together in standard $2\text{D}$ space, the team applies a Radial Basis Function (RBF) kernel. This projects the network log vectors into a higher-dimensional space where a flat hyperplane can cleanly partition the benign and malicious nodes.
 *   **Decision Tree:** Works like a game of $20$ Questions. It splits data at feature thresholds to maximize the purity of the resulting groups.
     *   *Entropy:* $H(S) = -\sum p_i \log_2 p_i$ (measures randomness).
     *   *Gini Impurity:* $G(S) = 1 - \sum p_i^2$ (measures classification error probability).

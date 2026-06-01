@@ -9,7 +9,7 @@ Prompt engineering is the software engineering discipline of guiding Large Langu
 The simplest way to guide a model is through the quantity of context examples provided inside the input prompt:
 
 *   **Zero-Shot Prompting:** The model is presented with a task description and an input payload, with zero examples of expected input-output behavior. It must rely entirely on its pre-trained statistical associations.
-    *   *Real-World Analogy:* Asking an experienced chef to cook a dish they have never prepared before, relying purely on the name of the dish and their general culinary knowledge.  <br /> 🔍 **Example:** 
+    *   **Exam Scenario:** A developer wants to build a simple classification pipeline to categorize incoming customer support tickets into `"Billing"`, `"Technical Support"`, or `"Account Lock"`. They implement **zero-shot prompting** by providing a basic classification instruction and the raw ticket text, relying entirely on the pre-trained model's general language associations to categorize the input without prior examples.
         ```text
 Classify the sentiment of the following product review as Positive or Negative.
 Review: "The battery died after two hours of use."
@@ -18,7 +18,7 @@ Sentiment:
 > [!WARNING]
 > **Zero-Shot Gotcha:** Zero-shot prompting is highly susceptible to formatting drift and hallucination when dealing with complex, multi-faceted constraints. If the model must output rigid JSON, zero-shot prompts frequently return conversational filler (e.g., "Sure, here is the classification: Positive") which crashes automated parser APIs.
 *   **Few-Shot Prompting:** The model is provided with a task description and a small set of structured, in-context examples showing inputs paired with correct outputs.
-    *   *Real-World Analogy:* Handing a line cook a recipe card along with three physical plates showing exactly how the finished dish must be plated and garnished before they start cooking.  <br /> 🔍 **Example:** 
+    *   **Exam Scenario:** A data engineer needs a large language model to read unstructured customer reviews and consistently output strict, valid JSON payloads containing extracted entities. Because zero-shot prompts frequently fail formatting rules and return conversational filler, they implement **few-shot prompting** by embedding three balanced, structured examples of review texts paired with their corresponding correct JSON outputs inside the prompt.
         ```text
 Classify the sentiment of the following product reviews as Positive or Negative.
 

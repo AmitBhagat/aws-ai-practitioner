@@ -36,7 +36,7 @@ Before feeding text to a model, we must clean it up:
 *   **Lemmatization:** A smart, linguistic approach that looks up words in a dictionary to find their base form, which is known as the **lemma**. For example, `"better"` maps to `"good"`, and `"running"` maps to `"run"`.  <br /> 🔍 **Example:** Analyzing the irregular verb `"was"` returns its dictionary base form `"be"`, and lemmatizing the plural form `"children"` returns the singular lemma `"child"`.
 
 > [!TIP]
-> **Pruning Analogy:** Think of Stemming like a landscaper roughly hacking branches off a tree with a chainsaw. It is fast, but messy. Lemmatization is like a botanist identifying the exact root structure of the plant and gently pruning it to its base form.
+> **Exam Scenario:** An engineering team is designing a search index for a massive document library and selects **stemming** because it runs extremely fast with minimal memory footprint. However, for a conversational chatbot and customer translation portal where grammatical correctness is vital, they select **lemmatization** to ensure words like *"running"* and *"ran"* are mapped accurately to their dictionary root *"run"*.
 
 ### Phase 2: Natural Language Understanding (NLU) & Syntax
 Once the text is clean, we analyze how the words fit together:

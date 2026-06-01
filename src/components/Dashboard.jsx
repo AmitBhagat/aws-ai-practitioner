@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { practiceQuestions } from '../data/quizData';
 
 const gotchasList = [
   // Module 01
@@ -258,6 +259,22 @@ const gotchasList = [
     title: "Audit Manager vs Trusted Advisor vs CloudTrail",
     desc: "Audit Manager automates compliance evidence logs. Trusted Advisor runs checks against AWS best practices (Cost, Security, Fault Tolerance, Performance, Limits). CloudTrail logs raw identity API calls.",
     module: "18. AI Governance, Security Services & Model Drift"
+  },
+  // Module 19
+  {
+    title: "QuickSight Q Scope Gotcha",
+    desc: "Do not confuse QuickSight Q with a general-purpose LLM like Amazon Bedrock. QuickSight Q cannot draft marketing copy, write application code, or process raw text databases. It is strictly optimized to map natural language queries to structured database schemas (like Redshift, Athena, or RDS) and generate visual reports.",
+    module: "19. Advanced Analytics, Security, Governance & Financial Management"
+  },
+  {
+    title: "Inspector Infrastructure Scan Boundary",
+    desc: "Amazon Inspector is a security scanner for infrastructure packages, operating systems, and network paths. It cannot identify algorithmic bias in your machine learning models, detect prompt injection attacks, or check for training dataset contamination. For model-specific bias and explainability, you must use SageMaker Clarify.",
+    module: "19. Advanced Analytics, Security, Governance & Financial Management"
+  },
+  {
+    title: "AWS Budgets Enforcement Gotcha",
+    desc: "Under the hood, AWS Budgets is an alerting system, not an active enforcement gatekeeper. If a daily cost budget is breached, AWS Budgets will send an email alert, but it will NOT automatically terminate the running GPU instances. You must link the alert to AWS Lambda via SNS to kill resources programmatically.",
+    module: "19. Advanced Analytics, Security, Governance & Financial Management"
   }
 ];
 
@@ -294,7 +311,7 @@ export default function Dashboard({ modules, progress, onSelectModule, setCurren
     {
       name: "Domain 3: Generative AI, RAG & Agentic Loops",
       desc: "Prompt engineering, cosine similarity, pgvector, Bedrock Agents, action groups.",
-      modules: [3, 10, 11, 12, 13, 14, 17]
+      modules: [3, 10, 11, 12, 13, 14, 17, 19]
     },
     {
       name: "Domain 4: Responsible AI & Explainability",
@@ -304,7 +321,7 @@ export default function Dashboard({ modules, progress, onSelectModule, setCurren
     {
       name: "Domain 5: Security, Compliance & Governance",
       desc: "5-scope Shared Responsibility Model, Generative AI Scoping Matrix, KMS, PrivateLink.",
-      modules: [9, 14, 16, 17, 18]
+      modules: [9, 14, 16, 17, 18, 19]
     }
   ];
 
@@ -526,7 +543,7 @@ export default function Dashboard({ modules, progress, onSelectModule, setCurren
             <span style={{ fontSize: '2.25rem', display: 'block', marginBottom: '0.5rem' }}>📝</span>
             <h3 style={{ margin: 0 }}>Practice Exam</h3>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.4rem' }}>
-              Test your logic against 390+ practice exam questions.
+              Test your logic against {practiceQuestions.length} practice exam questions.
             </p>
           </div>
         </div>

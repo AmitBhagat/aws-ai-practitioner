@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
 import StudyReader from './components/StudyReader';
 import Quiz from './components/Quiz';
+import Glossary from './components/Glossary';
 import { modules } from './data/topicsData';
 
 export default function App() {
@@ -115,6 +116,10 @@ export default function App() {
 
         {currentView === 'quiz' && (
           <Quiz />
+        )}
+
+        {currentView === 'glossary' && (
+          <Glossary />
         )}
       </main>
     </div>

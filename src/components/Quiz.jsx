@@ -166,7 +166,7 @@ export default function Quiz() {
           <span className="badge badge-mastered" style={{ fontSize: '0.65rem', marginBottom: '0.5rem', background: 'var(--accent-violet-glow)', color: 'var(--accent-violet)', border: '1px solid var(--accent-violet)' }}>
             Practice Engine
           </span>
-          <h1 style={{ fontSize: '1.65rem', marginBottom: '0.4rem', background: 'linear-gradient(135deg, #ffffff 40%, var(--accent-violet) 100%)', WebkitTextFillColor: 'transparent', WebkitBackgroundClip: 'text' }}>
+          <h1 style={{ fontSize: '1.65rem', marginBottom: '0.4rem', background: 'linear-gradient(135deg, var(--text-primary) 40%, var(--accent-violet) 100%)', WebkitTextFillColor: 'transparent', WebkitBackgroundClip: 'text' }}>
             AIF-C01 Practice Simulator
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>

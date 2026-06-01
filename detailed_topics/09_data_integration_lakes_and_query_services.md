@@ -4,9 +4,9 @@ To train machine learning models, you need a place to store data, a way to clean
 
 ---
 
-## 1. 🚰 The Water Reservoir Analogy
+## 1. 🗄️ End-to-End ML Data Pipeline Architecture
 
-Think of building a machine learning data pipeline like managing a city water supply:
+To deploy high-performing machine learning systems on AWS, you must establish an integrated, secure, and performant data architecture. Here is how AWS data ingestion, query, and catalog services coordinate:
 
 ```mermaid
 graph TD
@@ -16,24 +16,24 @@ graph TD
     classDef security fill:#be123c,stroke:#f43f5e,color:#f8fafc,stroke-width:2px;
     classDef compute fill:#064e3b,stroke:#10b981,color:#f8fafc,stroke-width:2px;
 
-    S3["🛢️ S3 Data Lake (Raw Reservoir)"]:::storage --> Crawler["🤖 Glue Crawler"]:::process
-    Crawler --> Catalog["📁 Glue Data Catalog (Map Directory)"]:::meta
-    Catalog --> LF["🛡️ Lake Formation (Security Gatekeeper)"]:::security
-    S3 --> Glue["⚙️ Glue ETL Studio (Filtration)"]:::compute
+    S3["🛢️ S3 Data Lake (Raw Storage)"]:::storage --> Crawler["🤖 Glue Crawler"]:::process
+    Crawler --> Catalog["📁 Glue Data Catalog (Schema Metadata)"]:::meta
+    Catalog --> LF["🛡️ Lake Formation (Central Governance)"]:::security
+    S3 --> Glue["⚙️ Glue ETL Studio (Data Transformation)"]:::compute
     Glue --> LF
-    LF --> Athena["🚰 Athena Queries (Clean Tap)"]:::compute
-    LF --> Redshift["🏢 Redshift Warehouse (High-Pressure Main)"]:::compute
-    LF --> OpenSearch["🔍 OpenSearch Service (Vector Index)"]:::compute
+    LF --> Athena["🚰 Athena (Serverless SQL Queries)"]:::compute
+    LF --> Redshift["🏢 Redshift (Enterprise Data Warehouse)"]:::compute
+    LF --> OpenSearch["🔍 OpenSearch Service (Vector Embedding Index)"]:::compute
 ```
 
-*   **Raw Water (Amazon S3 Data Lake):** S3 is your central water reservoir. It stores raw, unstructured data, including text files, CSV files, system logs, images, and video feeds.
-*   **Inspection Drone (AWS Glue Crawlers):** Glue Crawlers scan S3 folders, inspect file schemas, and write details into a catalog map.
-*   **Map Directory (AWS Glue Data Catalog):** A central directory containing schemas and partition rules, letting query tools know how S3 files are structured.
-*   **Security Gatekeeper (AWS Lake Formation):** Lake Formation defines strict access policies on who can see which columns or rows of the cataloged data.
-*   **Filtration Plant (AWS Glue Studio ETL):** Glue Studio lets you visually design Extract-Transform-Load (ETL) jobs. It automatically generates Spark code to clean and format data. For visual data preparation without code, you can use **AWS Glue DataBrew**.
-*   **Clean Tap Water (Amazon Athena Queries):** Athena lets you write standard SQL queries directly on S3 data using serverless Presto/Trino engines.
-*   **High-Pressure Main (Amazon Redshift):** For heavy corporate data warehousing, Redshift analyzes structured petabyte-scale data with high performance.
-*   **Water Distribution Analyzer (Amazon OpenSearch Service):** OpenSearch indexes text data and machine learning vector embeddings to enable semantic and full-text searches.
+*   **Raw Storage (Amazon S3 Data Lake):** S3 serves as the central data repository. It stores raw, unstructured data, including text files, CSV logs, system metrics, image datasets, and audio transcripts.
+*   **Metadata Discovery (AWS Glue Crawlers):** Automatically scan S3 folders, inspect file schemas, detect file formats, and write structural metadata into the Glue Data Catalog.
+*   **Schema Catalog (AWS Glue Data Catalog):** A central Hive-compatible metadata directory containing database schemas, partition structures, and data formats, allowing query engines to understand S3 files.
+*   **Data Governance (AWS Lake Formation):** Centralizes data lake setup and defines strict, fine-grained access control policies (row-level and column-level filters) on data catalog tables.
+*   **Transformation Pipeline (AWS Glue Studio ETL):** Visual drag-and-drop developer interface for building, running, and monitoring Spark or Ray ETL jobs to clean, join, and format raw datasets. You can also prepare data serverlessly without code using **AWS Glue DataBrew**.
+*   **Serverless Query (Amazon Athena):** Executes ad-hoc SQL queries directly on unstructured S3 files using serverless Presto and Trino query engines, without needing data loading.
+*   **Enterprise Warehouse (Amazon Redshift):** A high-performance columnar data warehouse designed to analyze petabyte-scale, highly structured corporate tables.
+*   **Semantic Vector Index (Amazon OpenSearch Service):** Indexes text files and high-dimensional machine learning vector embeddings to enable full-text, log analytical, and semantic search workloads.
 
 ---
 

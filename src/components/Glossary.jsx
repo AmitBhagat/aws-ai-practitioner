@@ -173,7 +173,7 @@ const GLOSSARY_TERMS = [
     id: 'amazon-bedrock',
     term: 'Amazon Bedrock',
     category: 'AWS Services',
-    definition: 'A fully managed serverless AWS service that provides secure, API-based access to a diverse catalog of high-performance foundation models from leading AI organizations. It guarantees strict data isolation, ensuring that a company\'s private prompts, RAG documents, and custom fine-tuning datasets are never used to train the base public models.',
+    definition: 'A fully managed serverless AWS service that provides API access to high-performance foundation models from leading AI companies. It guarantees data isolation, ensuring private prompts and datasets are never used to train the base public models.',
     examTakeaway: 'Provides serverless FM access with built-in security features, support for Knowledge Bases (RAG), and Agents (Action Groups powered by Lambda).',
     quizReference: 'Question 9, Question 13, Question 32, Question 34, Question 38, Question 47'
   },
@@ -181,7 +181,7 @@ const GLOSSARY_TERMS = [
     id: 'amazon-sagemaker',
     term: 'Amazon SageMaker',
     category: 'AWS Services',
-    definition: 'A comprehensive, fully managed AWS machine learning platform that provides end-to-end tools to build, train, deploy, and monitor classical ML and deep learning models. It supports the entire lifecycle from visual data preparation and feature engineering to deploying elastic inference endpoints and tracking production data decay.',
+    definition: 'A comprehensive, fully managed AWS platform that provides tools to build, train, deploy, and monitor machine learning models across the entire lifecycle, supporting classical ML, deep learning, visual data preparation, and production monitoring.',
     examTakeaway: 'Supports visual data prep (Wrangler), feature storage (Feature Store), pre-built algorithms (JumpStart), and active drift monitoring (Model Monitor).',
     quizReference: 'Question 6, Question 11, Question 27, Question 33, Question 39, Question 44'
   },
@@ -261,7 +261,7 @@ const GLOSSARY_TERMS = [
     id: 'data-drift',
     term: 'Data Drift (Covariate Shift)',
     category: 'Drift & Metrics',
-    definition: 'A statistical shift where the mathematical distribution of incoming production input features changes over time, while the underlying classification relationship remains constant. For example, a fraud detection model experiences a massive surge in online transactions compared to physical sweeps during a holiday season, changing the input features without altering fraud relationships.',
+    definition: 'A statistical shift where the mathematical distribution of incoming production input features changes over time, while the underlying classification relationship remains constant. For example, a fraud detection model experiences a massive surge in online transactions compared to physical swipes during a holiday season, changing the input features without altering fraud relationships.',
     examTakeaway: 'The input feature values change shape ($P(X)$ shifts), but the prediction mapping mapping rules ($P(Y|X)$) remain stable.',
     quizReference: 'Question 20, Question 45'
   },
@@ -424,6 +424,326 @@ const GLOSSARY_TERMS = [
     definition: 'Standardized, publicly available datasets (like GLUE or ImageNet) used to evaluate and compare the performance, safety, bias, and robustness of machine learning models. Using these pre-compiled benchmarks allows compliance teams to conduct initial safety and fairness audits with the least possible administrative effort.',
     examTakeaway: 'Saves developer time. Standard tools to run baseline security and fair-treatment assessments before deploying custom FMs.',
     quizReference: 'Question 48'
+  },
+  {
+    id: 'generative-ai',
+    term: 'Generative AI',
+    category: 'GenAI & LLMs',
+    definition: 'A class of artificial intelligence models designed to synthesize entirely new data outputs (such as images, source code, or conversational text passages) rather than simply classifying existing inputs. For example, a digital marketing agency uses foundation models to automatically generate photorealistic product advertisement mockups from plain text descriptions, accelerating campaign drafts with minimal operational effort.',
+    examTakeaway: 'Capable of creating original novel content across text, code, images, and audio, governed by user prompt conditioning.',
+    quizReference: 'Question 22'
+  },
+  {
+    id: 'pre-training-bias',
+    term: 'Pre-Training Bias',
+    category: 'AWS Security & Gov',
+    definition: 'A systematic data discrepancy or unfair skew present within the historical raw dataset used to pre-train a foundation model, leading the model to exhibit discriminatory behaviors after deployment. For instance, an image generation model predominantly trained on photos of corporate executives from a single demographic group will struggle to produce balanced diversity when prompted, requiring active mitigation during data selection.',
+    examTakeaway: 'Bias embedded during public data ingestion; requires careful ground truth validation and balance correction techniques.',
+    quizReference: 'Question 37, Question 48'
+  },
+  {
+    id: 'class-imbalance',
+    term: 'Class Imbalance',
+    category: 'Drift & Metrics',
+    definition: 'A common machine learning data problem where one target label is highly over-represented compared to others in the training set, causing the model to biassedly favor the majority class. For example, in a transaction fraud classifier where 99.9% of card swipes are legitimate, a model can achieve deceptively high accuracy by simply predicting that no swipes are fraudulent, forcing developers to implement sampling techniques or use alternative metrics.',
+    examTakeaway: 'Makes overall accuracy highly misleading. Must be resolved via data augmentation or using metrics like F1-Score and Precision/Recall.',
+    quizReference: 'Question 4, Question 37'
+  },
+  {
+    id: 'f1-score',
+    term: 'F1-Score',
+    category: 'Drift & Metrics',
+    definition: 'A classification evaluation metric defined mathematically as the harmonic mean of Precision and Recall. It is the preferred evaluation metric to balance target detection performance on highly imbalanced datasets (such as medical diagnostics or industrial anomaly detection), where optimizing solely for accuracy or looking at a single metric would lead to dangerously high rates of false positives or false negatives.',
+    examTakeaway: 'Calculated as $2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}}$. The standard selection for highly skewed classification targets.',
+    quizReference: 'Question 46'
+  },
+  {
+    id: 'r-squared',
+    term: 'R-Squared (R²)',
+    category: 'Drift & Metrics',
+    definition: 'A regression evaluation metric that measures the proportion of variance in the target variable that is explainable by the input features. Yielding a score between $0$ and $1.0$, a retail company uses it to assess how accurately their sales forecasting model predicts upcoming revenue fluctuations based on external marketing spends and weather variables.',
+    examTakeaway: 'Tracks model goodness-of-fit. A score of $1.0$ indicates that the input features completely account for all target variability.',
+    quizReference: 'Question 4'
+  },
+  {
+    id: 'rmse',
+    term: 'RMSE (Root Mean Squared Error)',
+    category: 'Drift & Metrics',
+    definition: 'A regression evaluation metric that calculates the average magnitude of prediction errors by squaring individual differences, averaging them, and taking the square root. Because it squares the errors before averaging, it penalizes large outliers severely, making it the ideal choice for a logistics company trying to track and minimize massive delays in delivery times.',
+    examTakeaway: 'Expresses average error in original target units. Highly sensitive to outliers due to the squaring transformation.',
+    quizReference: 'Question 4'
+  },
+  {
+    id: 'regression',
+    term: 'Regression',
+    category: 'ML Fundamentals',
+    definition: 'A supervised machine learning paradigm dedicated to predicting continuous, real-valued numerical variables. For example, a real estate firm trains a regression model on house attributes (like square footage, bedroom count, and postal code) to estimate the exact upcoming list price of new homes entering the market rather than sorting them into simple categories.',
+    examTakeaway: 'Focuses strictly on continuous scalar predictions (like pricing, temperature, or demand quantities) rather than categorical bins.',
+    quizReference: 'Question 4, Question 14'
+  },
+  {
+    id: 'classification',
+    term: 'Classification',
+    category: 'ML Fundamentals',
+    definition: 'A supervised machine learning paradigm focused on assigning incoming data points into discrete, predefined category labels. For example, a telecommunications firm builds a binary classifier to categorize customers into active or churned categories based on usage drop-offs, enabling their retention team to target at-risk users.',
+    examTakeaway: 'Outputs categorical indices (e.g. Fraud / No Fraud, Approved / Denied). Uses output layers like Sigmoid or Softmax.',
+    quizReference: 'Question 4, Question 17'
+  },
+  {
+    id: 'clustering',
+    term: 'Clustering',
+    category: 'ML Fundamentals',
+    definition: 'An unsupervised machine learning technique that groups raw, unlabeled data points together based on natural mathematical distances and similarities. For instance, a streaming service analyzes raw user audio preferences and song-skipping intervals to automatically cluster millions of listeners into 10 cohesive musical profiles for playlist curation.',
+    examTakeaway: 'A key unsupervised paradigm. Groups observations mathematically (e.g. via K-Means distance metrics) without target labels.',
+    quizReference: 'Question 17'
+  },
+  {
+    id: 'few-shot-prompting',
+    term: 'Few-Shot Prompting',
+    category: 'GenAI & LLMs',
+    definition: 'A prompt engineering strategy where developers include a small number of concrete, labeled task examples (e.g., prompt-completion pairs) directly inside the invocation prompt to guide a foundation model. For instance, a company lists three customer reviews labeled positive or negative in the prompt to teach the model how to classify the tone of a fourth, new customer review.',
+    examTakeaway: 'Drastically improves prediction structure by demonstrating output formats directly inside the runtime prompt.',
+    quizReference: 'Question 5, Question 25'
+  },
+  {
+    id: 'zero-shot-prompting',
+    term: 'Zero-Shot Prompting',
+    category: 'GenAI & LLMs',
+    definition: 'A prompt engineering strategy where a foundation model is asked to perform a task without being provided any prior labeled examples inside the prompt. The developer relies entirely on the model\'s pre-trained vocabulary and semantic instructions, such as submitting a raw customer query directly with the instruction \'Translate this text into Spanish\'.',
+    examTakeaway: 'The baseline prompting scenario. Evaluates the FM\'s raw generalized task comprehension without context conditioning.',
+    quizReference: 'Question 25'
+  },
+  {
+    id: 'chain-of-thought',
+    term: 'Chain-of-Thought Prompting',
+    category: 'GenAI & LLMs',
+    definition: 'A prompt engineering technique that instructs a foundation model to write out its step-by-step reasoning path before outputting the final answer. For example, when solving a complex multi-step math word problem, the prompt instructs the model to \'explain your steps systematically,\' which significantly improves its reasoning accuracy by decomposing the logic.',
+    examTakeaway: 'Forces sequential inference generation. Drastically resolves logical arithmetic and complex step-wise reasoning failures.',
+    quizReference: 'Question 5'
+  },
+  {
+    id: 'hallucination',
+    term: 'Hallucination',
+    category: 'GenAI & LLMs',
+    definition: 'A failure state in foundation models where the generated text output is factually incorrect, nonsensical, or completely unsupported by the provided context. This occurs because the model is trained to predict the most probable sequence of words rather than verifying facts, which is mitigated by grounding the model using Retrieval-Augmented Generation.',
+    examTakeaway: 'Key generative risk. Controlled via low temperature thresholds or implementing vector-grounded RAG architectures.',
+    quizReference: 'Question 38, Question 47'
+  },
+  {
+    id: 'slm',
+    term: 'Small Language Model (SLM)',
+    category: 'GenAI & LLMs',
+    definition: 'Highly optimized, compact deep learning models designed specifically to execute language tasks efficiently in resource-constrained environments like edge devices or mobile phones. By training on highly curated, high-quality narrow datasets, SLMs provide extremely low-latency local inference while completely bypassing the cloud network overhead of massive LLMs.',
+    examTakeaway: 'The preferred language model strategy for low-latency edge deployments and resource-constrained micro-compute setups.',
+    quizReference: 'Question 10'
+  },
+  {
+    id: 'multi-modal',
+    term: 'Multi-Modal Foundation Models',
+    category: 'GenAI & LLMs',
+    definition: 'A class of foundation models capable of processing and generating outputs across multiple distinct data formats simultaneously (such as text, images, audio, and source code). For instance, an autonomous vehicle company uses a multi-modal embedding model to represent traffic camera feeds and written driver logs in a shared vector space for nearest-neighbor search.',
+    examTakeaway: 'Enables cross-data operations (e.g. querying images with natural text prompts) via shared multi-modal coordinate spaces.',
+    quizReference: 'Question 18'
+  },
+  {
+    id: 'amazon-comprehend',
+    term: 'Amazon Comprehend',
+    category: 'AWS Services',
+    definition: 'A purpose-built Natural Language Processing (NLP) service that uses machine learning to automatically extract insights, entities, key phrases, and sentiments from text documents. For example, an insurance firm scans incoming customer feedback emails in real-time to detect customer frustration and automatically routes high-severity tickets to executive managers.',
+    examTakeaway: 'The standard AWS service for extracting entity insights, parsing review text sentiments, and running automated NLP tasks.',
+    quizReference: 'Question 16, Question 46'
+  },
+  {
+    id: 'amazon-lex',
+    term: 'Amazon Lex',
+    category: 'AWS Services',
+    definition: 'A fully managed AWS service designed to build conversational interfaces, chatbots, and voice response systems using advanced natural language understanding. It allows developers to define intents, slots, and fulfillment actions (e.g., integrating Lambda functions), enabling banks to deploy automated phone systems for checking account balances.',
+    examTakeaway: 'Purpose-built chatbot framework featuring automatic speech recognition and built-in integration slots for execution Lambdas.',
+    quizReference: 'Question 16, Question 46'
+  },
+  {
+    id: 'amazon-rekognition',
+    term: 'Amazon Rekognition',
+    category: 'AWS Services',
+    definition: 'A fully managed AWS computer vision service that automates image and video analysis, enabling capabilities like facial analysis, text extraction from objects, and unsafe content detection. For example, a delivery company uses it to verify photo confirmations of packages left at customer doors to ensure the drop-off location is correct.',
+    examTakeaway: 'The core computer vision service used for facial recognition, video frame inspection, and custom visual labeling workflows.',
+    quizReference: 'Question 8'
+  },
+  {
+    id: 'amazon-polly',
+    term: 'Amazon Polly',
+    category: 'AWS Services',
+    definition: 'A fully managed cloud service that converts written text into lifelike spoken audio using advanced deep learning text-to-speech technologies. It supports multiple languages and realistic voices, allowing educational platforms to automatically generate high-quality audio books from written course chapters with minimal effort.',
+    examTakeaway: 'The standard AWS text-to-speech utility; widely used to generate natural, multi-language conversational voice prompts.',
+    quizReference: 'Question 46'
+  },
+  {
+    id: 'sagemaker-data-wrangler',
+    term: 'SageMaker Data Wrangler',
+    category: 'AWS Services',
+    definition: 'A specialized capability inside Amazon SageMaker that simplifies data preparation and feature engineering for machine learning. It provides over 300 built-in data transformations, allowing data scientists to visually clean, join, and balance large datasets from S3 without writing complex ETL code.',
+    examTakeaway: 'Lowers compute prep time by providing drag-and-drop visual connectors to easily join, transform, and balance tabular datasets.',
+    quizReference: 'Question 11'
+  },
+  {
+    id: 'amazon-personalize',
+    term: 'Amazon Personalize',
+    category: 'AWS Services',
+    definition: 'A fully managed AWS service that enables developers to build real-time, highly customized recommendation engines using the same machine learning technologies powering Amazon.com. For instance, a streaming video application feeds customer viewing logs into it to dynamically serve personalized movie recommendations, boosting user engagement.',
+    examTakeaway: 'Managed real-time recommendation system designed to serve customized content directly inside user-facing applications.',
+    quizReference: 'Question 33'
+  },
+  {
+    id: 'aws-iam',
+    term: 'AWS IAM (Identity & Access)',
+    category: 'AWS Security & Gov',
+    definition: 'The core security service used to manage access permissions and authentication for AWS resources. To secure Amazon Bedrock deployments, administrators configure strict IAM policies and execution roles based on the principle of least privilege, ensuring that only authorized users or applications can invoke foundation models.',
+    examTakeaway: 'Governs model endpoint security. Execution service roles must have explicit permission mappings to invoke foundation models.',
+    quizReference: 'Question 9, Question 12, Question 34'
+  },
+  {
+    id: 'vpc-endpoints',
+    term: 'VPC Endpoints (PrivateLink)',
+    category: 'AWS Security & Gov',
+    definition: 'A secure AWS networking capability that allows resources inside a virtual private cloud to privately connect to supported AWS services like Bedrock and S3. By using PrivateLink interface endpoints, sensitive inference request traffic never traverses the public internet, satisfying strict corporate compliance standards.',
+    examTakeaway: 'VPC interface endpoints bypass public networks entirely to direct API calls safely within AWS internal network backbones.',
+    quizReference: 'Question 13'
+  },
+  {
+    id: 'sagemaker-model-cards',
+    term: 'SageMaker Model Cards',
+    category: 'AWS Security & Gov',
+    definition: 'A documentation standard inside Amazon SageMaker that captures critical metadata, intended use cases, training parameters, and evaluation metrics for machine learning models. It provides a centralized, audited record of model history, helping corporate governance teams satisfy regulatory transparency mandates.',
+    examTakeaway: 'A central tool to satisfy compliance transparency audits by registering and documenting critical model configurations and metadata.',
+    quizReference: 'Question 11'
+  },
+  {
+    id: 'sagemaker-model-registry',
+    term: 'SageMaker Model Registry',
+    category: 'AWS Services',
+    definition: 'A centralized catalog inside Amazon SageMaker used to register, version, track lineage, and manage the approval status of machine learning models. It enables MLOps teams to automatically promote validated models from staging to production, maintaining a transparent audit trail of active weights.',
+    examTakeaway: 'The central platform tool to version, register, and coordinate multi-stage model promotion steps in production pipelines.',
+    quizReference: 'Question 53'
+  },
+  {
+    id: 'pdp',
+    term: 'Partial Dependence Plots (PDP)',
+    category: 'Drift & Metrics',
+    definition: 'An explainability visualization technique that shows the marginal effect of one or two input features on the predicted outcome of a machine learning model. By showing stakeholders exactly how changes in a specific variable (like credit card utilization) affect predicted risk scores, PDPs satisfy strict regulatory transparency rules.',
+    examTakeaway: 'An interpretability tool showing the isolated marginal influence of specific individual features on model predictions.',
+    quizReference: 'Question 1'
+  },
+  {
+    id: 'shap',
+    term: 'SHAP Explainability Metrics',
+    category: 'Drift & Metrics',
+    definition: 'A game-theoretic mathematical framework used to explain individual model predictions by calculating the exact contribution (attribution) of each input feature. For example, SageMaker Clarify computes post-training SHAP values to explain to loan applicants which specific variables had the highest negative impact on their credit assessment.',
+    examTakeaway: 'Calculates mathematically sound feature attribution scores to explain individual prediction weights and model behaviors.',
+    quizReference: 'Question 39, Question 44'
+  },
+  {
+    id: 'lime',
+    term: 'LIME explainability',
+    category: 'Drift & Metrics',
+    definition: 'An explainability method that builds surrogate interpretable models around specific, individual predictions to approximate the decision boundaries of black-box algorithms locally. This is used by medical research teams to explain exactly why a deep learning model flagged a specific patient image, boosting clinical trust.',
+    examTakeaway: 'Local surrogate explainability framework; constructs simple interpretable models to approximate complex global boundaries locally.',
+    quizReference: 'Question 1'
+  },
+  {
+    id: 'aws-glue',
+    term: 'AWS Glue',
+    category: 'AWS Services',
+    definition: 'A fully managed, serverless data integration and ETL service that simplifies the process of discovering, cleaning, and preparing data for analytics and machine learning. It catalogues corporate datasets stored in S3, making it easy for data science pipelines to query and import structured tables.',
+    examTakeaway: 'Serverless ETL service designed to easily catalogue, transform, and move structured corporate data tables.',
+    quizReference: 'Question 28'
+  },
+  {
+    id: 'amazon-athena',
+    term: 'Amazon Athena',
+    category: 'AWS Services',
+    definition: 'An interactive query service that allows developers to run standard SQL queries directly against raw files stored in Amazon S3 buckets. Billed purely on the volume of data scanned, it is the preferred tool for cloud engineers to quickly inspect massive audit logs or compile training datasets without provisioning database servers.',
+    examTakeaway: 'Interactive serverless SQL database service to query raw data stored in S3 files directly without compute servers.',
+    quizReference: 'Question 28'
+  },
+  {
+    id: 'aws-lake-formation',
+    term: 'AWS Lake Formation',
+    category: 'AWS Services',
+    definition: 'A fully managed service that makes it easy to set up, secure, and govern a secure data lake in S3. It provides fine-grained, column-level access control permissions, allowing AI teams to safely share sensitive customer transaction data across different modeling pipelines without exposing PII.',
+    examTakeaway: 'Managed data lake orchestrator providing strict, column-level access control policies on S3 assets.',
+    quizReference: 'Question 28'
+  },
+  {
+    id: 'amazon-redshift',
+    term: 'Amazon Redshift',
+    category: 'AWS Services',
+    definition: 'A fast, fully managed, petabyte-scale cloud data warehouse designed for high-performance analytics workloads. It integrates with SageMaker to allow data analysts to train and run predictive models directly on historical warehouse tables using standard SQL statements.',
+    examTakeaway: 'Petabyte-scale corporate data warehousing service supporting direct integration with SageMaker ML models.',
+    quizReference: 'Question 28'
+  },
+  {
+    id: 'security-matrix',
+    term: 'Security Scoping Matrix',
+    category: 'AWS Security & Gov',
+    definition: 'A security scoping framework (Scopes 1 to 5) that defines the division of security responsibilities between AWS and the customer based on model deployment types. Scope 1 represent raw public API consumer models with the least customer operational overhead, while Scope 5 represents building custom models from scratch.',
+    examTakeaway: 'Specifies client vs provider security boundaries across 5 deployment scopes. Scope 5 grants maximum customer security ownership.',
+    quizReference: 'Question 30'
+  },
+  {
+    id: 'bedrock-guardrails',
+    term: 'Amazon Bedrock Guardrails',
+    category: 'AWS Security & Gov',
+    definition: 'A native Amazon Bedrock security capability that allows organizations to define strict content filtering, PII masking, and word redaction policies across their foundation model deployments. It evaluates user inputs and model outputs in real-time, instantly blocking prompt injections or inappropriate answers.',
+    examTakeaway: 'Enforces strict, multi-stage content safety parameters to redact PII and block injection scripts at the API boundary.',
+    quizReference: 'Question 29'
+  },
+  {
+    id: 'model-customization',
+    term: 'Model Customization',
+    category: 'GenAI & LLMs',
+    definition: 'The broad process of modifying a foundation model\'s capabilities using fine-tuning or continued pre-training datasets. This updates the model\'s actual weight configurations inside Bedrock to excel at specialized linguistic contexts, requiring provisioned throughput capacity to serve endpoints.',
+    examTakeaway: 'The umbrella term for fine-tuning or continued pre-training inside Bedrock to permanently update base model weights.',
+    quizReference: 'Question 19, Question 43'
+  },
+  {
+    id: 'hyperparameters',
+    term: 'Hyperparameters',
+    category: 'ML Fundamentals',
+    definition: 'The external configurations and settings set by data scientists before model training begins that guide the learning algorithm (such as learning rate, epochs, or batch size). Unlike model weights, these variables are not learned during training and must be tuned manually using SageMaker Autopilot.',
+    examTakeaway: 'External training guideposts (epochs, batch size) that must be set manually prior to launching active model training runs.',
+    quizReference: 'Question 3, Question 11, Question 45'
+  },
+  {
+    id: 'learning-rate',
+    term: 'Learning Rate (alpha)',
+    category: 'ML Fundamentals',
+    definition: 'A critical model training hyperparameter that controls the step size the optimization algorithm takes when adjusting parameters to minimize the loss function. Setting the step size too large can cause the model to overshoot optimal parameters, while setting it too small results in excessively slow training speeds.',
+    examTakeaway: 'Controls step weight updates. Extreme values risk overshooting optimal settings or causing slow model convergence.',
+    quizReference: 'Question 11, Question 45'
+  },
+  {
+    id: 'epochs',
+    term: 'Epochs',
+    category: 'ML Fundamentals',
+    definition: 'A model training hyperparameter representing the total number of complete passes the learning algorithm makes through the entire training dataset. Increasing the parameter size allows the model to learn more complex relationships, but setting it too high causes the model to overfit the noise in the training set.',
+    examTakeaway: 'Calculates total complete iterations through a training dataset. Excessive values trigger training overfitting states.',
+    quizReference: 'Question 7, Question 41, Question 45'
+  },
+  {
+    id: 'batch-size',
+    term: 'Batch Size',
+    category: 'ML Fundamentals',
+    definition: 'A model training hyperparameter that defines the number of training samples processed before the algorithm updates the model\'s internal parameter weights. Choosing a smaller configuration size reduces memory requirements during training runs, while larger sizes accelerate hardware utilization on GPU clusters.',
+    examTakeaway: 'Configures sample subsets processed before parameters update. Controls memory loads and GPU pipeline scaling attributes.',
+    quizReference: 'Question 41'
+  },
+  {
+    id: 'loss-function',
+    term: 'Loss Function',
+    category: 'ML Fundamentals',
+    definition: 'A mathematical function that calculates the exact difference between a model\'s predictions and actual ground-truth labels during training. The optimization algorithm uses the output of this function to run gradient descent backpropagation updates, systematically steering weights to minimize overall prediction errors.',
+    examTakeaway: 'Calculates mathematical target errors (e.g. RMSE or Cross-Entropy) to guide gradient adjustments during backpropagation updates.',
+    quizReference: 'Question 11'
   }
 ];
 
